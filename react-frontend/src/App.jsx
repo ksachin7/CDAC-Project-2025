@@ -1,6 +1,7 @@
 // import RoutesComponent from './routes';
 import './styles/App.css'
 import { createGlobalStyle } from 'styled-components';
+import TestBackendAPI from './TestBackendAPI'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -18,6 +19,7 @@ function App() {
     <>
      <div className="App">
       <GlobalStyle />
+      <TestBackendAPI />
       {/* <RoutesComponent /> */}
     </div>
     </>
