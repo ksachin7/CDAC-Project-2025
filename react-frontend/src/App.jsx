@@ -1,4 +1,4 @@
-// import RoutesComponent from './routes';
+import RoutesComponent from './routes';
 import './styles/App.css'
 import { createGlobalStyle } from 'styled-components';
 import TestBackendAPI from './TestBackendAPI'
@@ -6,7 +6,6 @@ import TestBackendAPI from './TestBackendAPI'
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    font-family: sans-serif;
     background-color: #111827;
     color: white;
   }
@@ -19,8 +18,8 @@ function App() {
     <>
      <div className="App">
       <GlobalStyle />
-      <TestBackendAPI />
-      {/* <RoutesComponent /> */}
+      {/* <TestBackendAPI /> */}
+      <RoutesComponent />
     </div>
     </>
   )
