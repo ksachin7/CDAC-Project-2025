@@ -1,0 +1,43 @@
+package com.cdac.acts.e_Valuation.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cdac.acts.e_Valuation.dto.LoginRequest;
+import com.cdac.acts.e_Valuation.dto.LoginResponse;
+import com.cdac.acts.e_Valuation.dto.RegisterRequest;
+import com.cdac.acts.e_Valuation.service.AuthService;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    @Autowired
+    private AuthService authService;
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+        authService.register(request.getEmail(), request.getPassword(), request.getRole());
+        return ResponseEntity.ok("User registered successfully");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        String jwt = authService.login(request.getEmail(), request.getPassword());
+        return ResponseEntity.ok(new LoginResponse(jwt));
+    }
+    
+    // to test token is working correctly
+    @GetMapping("/me")
+    public ResponseEntity<UserDetails> getCurrentUser(Authentication authentication) {
+        return ResponseEntity.ok((UserDetails) authentication.getPrincipal());
+    }
+
+}
