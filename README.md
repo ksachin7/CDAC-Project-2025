@@ -1,17 +1,17 @@
-# e-Valuation
+# eValuation
 
 This project is a full-stack interview platform designed to facilitate online technical interviews. It includes a variety of features aimed at enhancing the interview experience for both candidates and interviewers.
 
 ### Core Functionalities
 
-* ✅ User Authentication (Candidate/Interviewer)
-* ✅ Video Call (Join/Leave, Toggle Audio/Video)
-* ✅ Schedule Interview (Calendar-based, Time Zones)
-* ✅ Email Notifications (Interview invites/reminders)
-* ✅ Chat Box (Real-time)
-* ✅ Code Editor (Monaco/CodeMirror with run option)
-* ✅ UI Toggles (Open/close chat and code editor)
-* ✅ Interview Room (Session joining)
+* User Authentication (Candidate/Interviewer)
+* Video Call (Join/Leave, Toggle Audio/Video)
+* Schedule Interview
+* Email Notifications
+* Chat Box (Real-time)
+* Code Editor (Monaco with run option)
+* UI Toggles (Open/close chat and code editor)
+* Interview Room (Session joining)
 
 ## **Architecture Overview**
 
@@ -53,11 +53,14 @@ flowchart TD
 
 </div>
 
+<!-- 
 ## **Testing**
 
 * ✅ Unit Tests (Jest for frontend, JUnit for backend)
 * ✅ Integration Tests for APIs
 * ✅ UI/UX responsiveness and error handling
+
+-->
 
 ## 💡 Future Enhancements
 
@@ -71,16 +74,16 @@ flowchart TD
 
 | Module                | Tech Stack                        |
 | --------------------- | --------------------------------- |
-| Frontend UI           | React.js, TailwindCSS |
-| Video Call            | WebRTC / Twilio / Jitsi           |
-| Real-Time (Chat etc.) | Socket.IO / WebSocket (STOMP)     |
-| Backend API           | Spring Boot, REST, Spring data                 |
+| Frontend UI           | React.js, TailwindCSS             |
+| Video Call            | WebRTC                            |
+| Real-Time (Chat etc.) | Socket.IO / WebSocket             |
+| Backend API           | Spring Boot, REST, Spring data    |
 | DB                    | PostgreSQL/MySQL                  |
 | Auth                  | Spring Security + JWT             |
-| Email                 | JavaMailSender / SendGrid         |
+| Email                 | JavaMailSender                    |
 | Code Editor           | Monaco Editor                     |
 | Scheduler             | Spring Tasks                      |
-| Deployment            | Docker + CI/CD + Cloud Hosting    |
+| Deployment            | AWS                               |
 
 ---
 
@@ -125,4 +128,4 @@ npm run dev
 
 This will start the React app on [http://localhost:5173](http://localhost:5173).
 
----
+See [Contribution Guide](/CONTRIBUTING.md)
