@@ -24,9 +24,9 @@ out/
 
 # === Spring Boot (Java Backend) ===
 **/target/
-**/.classpath
-**/.project
-**/.settings/
+# **/.classpath
+# **/.project
+# **/.settings/
 **/.mvn/
 !**/.mvn/wrapper/maven-wrapper.jar
 **/logs/
