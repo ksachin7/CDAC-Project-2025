@@ -1,13 +1,13 @@
 # === Node (React Frontend) ===
 **/node_modules/
 **/build/
-**/.env
+# **/.env
 **/.DS_Store
 **/npm-debug.log*
 **/yarn-debug.log*
 **/yarn-error.log*
 **/package-lock.json
-**/dist/
+# **/dist/
 **/.eslintcache
 
 # === IntelliJ IDEA ===
@@ -30,11 +30,11 @@ out/
 **/.mvn/
 !**/.mvn/wrapper/maven-wrapper.jar
 **/logs/
-**/application.properties
-**/application.yml
+# **/application.properties
+# **/application.yml
 **/*.log
 **/*.swp
-**/.env
+# **/.env
 
 # === Maven Wrapper files (optional ignore) ===
 #mvnw
