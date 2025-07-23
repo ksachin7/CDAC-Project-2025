@@ -1,0 +1,49 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS Evaluation;
+USE Evaluation;
+
+-- Table 1: User
+CREATE TABLE User (
+    UserId INT AUTO_INCREMENT PRIMARY KEY,
+    Email VARCHAR(255) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    Role ENUM('Interviewer', 'Candidate') NOT NULL,
+    Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table 2: Meeting
+CREATE TABLE Meeting (
+    MeetingId INT AUTO_INCREMENT PRIMARY KEY,
+    Candidate INT NOT NULL,
+    Interviewer INT NOT NULL,
+    Purpose VARCHAR(255),
+    FOREIGN KEY (Candidate) REFERENCES User(UserId)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (Interviewer) REFERENCES User(UserId)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Table 3: ScheduleMeeting
+CREATE TABLE ScheduleMeeting (
+    ScheduleMeetingId INT AUTO_INCREMENT PRIMARY KEY,
+    MeetingId INT NOT NULL,
+    Time DATETIME NOT NULL,
+    FOREIGN KEY (MeetingId) REFERENCES Meeting(MeetingId)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Table 4: HistoryMeeting
+CREATE TABLE HistoryMeeting (
+    HistoryMeetingId INT AUTO_INCREMENT PRIMARY KEY,
+    MeetingId INT NOT NULL,
+    Time DATETIME NOT NULL,
+    Duration INT NOT NULL, -- store duration in minutes
+    FOREIGN KEY (MeetingId) REFERENCES Meeting(MeetingId)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
