@@ -21,20 +21,24 @@ public class AuthService {
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private TokenProvider tokenProvider;
 
-    public void register(String email, String password, Role role) {
+    public void register(String name, String email, String password) {
         User user = new User();
+        user.setName(name);
         user.setEmail(email);
         user.setPasswordHash(passwordEncoder.encode(password));
-        user.setRole(role);
+        user.setRole(Role.CANDIDATE);
+        System.out.println(user.getName());
+        System.out.println(user.getEmail());
+        System.out.println(user.getPassword());
         userRepository.save(user);
     }
 
     public String login(String email, String password) {
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
 
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
-            throw new BadCredentialsException("Invalid credentials");
+            throw new BadCredentialsException("Invalid credentials!");
         }
 
         return tokenProvider.generateToken(
@@ -42,6 +46,7 @@ public class AuthService {
                 user.getEmail(),
                 user.getPasswordHash(),
                 List.of(new SimpleGrantedAuthority(user.getRole().name()))
+//                List.of()
             )
         );
     }
