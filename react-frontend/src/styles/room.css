@@ -1,0 +1,26 @@
+.room-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #121212;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.room-header {
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #1f1f1f;
+  border-bottom: 1px solid #333;
+  margin: 0;
+}
+
+.split-view {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.split-view > div {
+  overflow: auto;
+}
