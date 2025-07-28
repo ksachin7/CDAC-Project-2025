@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
 const RequireAuth = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('token');
+  const isAuthenticated = localStorage.getItem('jwt');
   const location = useLocation();
 
   return isAuthenticated ? (
