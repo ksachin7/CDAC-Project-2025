@@ -6,7 +6,7 @@ import LogoutButton from '../components/LogoutButton.jsx'
 function Dashboard() {
     return (
         <div id='dashboard-container'>
-            <nav>
+            <nav className='dashboard-nav'>
                 <h2>Dashboard</h2>
                 <LogoutButton />
             </nav>

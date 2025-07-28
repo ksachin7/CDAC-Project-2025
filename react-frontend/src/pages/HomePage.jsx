@@ -23,7 +23,7 @@ const HomePage = () => {
                 </nav>
 
                 <button
-                    className="px-4 py-2 text-sm bg-white text-black rounded-full"
+                    className="px-4 py-2 text-sm bg-yellow-100 text-black rounded-full"
                     onClick={() => navigate('/login')}
                 >
                     Get Started — It's Free
@@ -31,10 +31,17 @@ const HomePage = () => {
             </header>
 
             <main className="w-screen px-8 py-20">
-                <div className="w-full text-center mb-12">
+                {/* <div className='w-full bg-white max-w-2xl mx-auto text-center mb-12'>
+                    <img src={myImage} alt="evaluation PNG" />
+                </div> */}
+                <div className="text-center mb-12">
                     <h1 className="text-5xl font-bold leading-tight">
-                        Online Video Calls, Meetings<br />and Conferencing
+                        <span className='text-[10rem]'>👩🏻‍💻</span><br />Welcome to <span className='text-green-500'><span className=''>e</span>Valuation</span>
                     </h1>
+                    <h2 className="text-xl leading-tight">
+                        {/* Connecting Talent with Opportunity */}
+                        Unlocking Potential, One Interview at a Time
+                    </h2>
                 </div>
 
                 {/* Meeting Join */}
