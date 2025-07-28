@@ -33,7 +33,6 @@ const MeetingRoom = () => {
       scenario: {
         mode: ZegoUIKitPrebuilt.VideoConference,
       },
-      showPreJoinView: false,
       turnOnCameraWhenJoining: true,
       turnOnMicrophoneWhenJoining: true,
       showTextChat: true,
@@ -48,30 +47,23 @@ const MeetingRoom = () => {
           url: window.location.href,
         },
       ],
+      onJoinRoom: () => {
+        console.log("Joined the room");
+      },
     });
 
     setTimeout(() => {
       const container = roomRef.current;
       if (container) {
-        Object.assign(container.style, {
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flex: 1,
-          padding: 0,
-          margin: 0,
-        });
-
-        const zegoDiv = container.querySelector("div");
-        if (zegoDiv) {
-          Object.assign(zegoDiv.style, {
-            width: "100%",
-            height: "100%",
-            display: "flex",
-          });
-        }
+        container.style.width = "100%";
+        container.style.height = "100%";
+        container.style.maxWidth = "100%";
+        container.style.maxHeight = "100%";
+        container.style.overflow = "hidden";
+        container.style.display = "flex";
+        container.style.flexDirection = "column";
       }
-    }, 1500);
+    }, 1000);
   }, [roomId]);
 
   const runCode = () => {
@@ -101,6 +93,7 @@ const MeetingRoom = () => {
         flexDirection: "column",
         backgroundColor: "#121212",
         color: "#fff",
+
         fontFamily: "Segoe UI, sans-serif",
       }}
     >
@@ -116,11 +109,11 @@ const MeetingRoom = () => {
         Room ID: {roomId}
       </h2>
       <Split
-        sizes={[60, 40]}
+        sizes={[50, 50]} // ← CHANGE THIS from [70, 30]
         minSize={[300, 300]}
         gutterSize={8}
         direction="horizontal"
-        style={{ display: "flex", flex: 1, height: "100%", overflow: "hidden" }}
+        style={{ display: "flex", flex: 1, overflow: "hidden" }}
         gutter={() => {
           const gutter = document.createElement("div");
           gutter.style.width = "8px";
@@ -196,7 +189,6 @@ const MeetingRoom = () => {
             height: "100%",
             overflow: "hidden",
             backgroundColor: "#1e1e1e",
-            display: "flex",
           }}
         />
       </Split>

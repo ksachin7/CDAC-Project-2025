@@ -21,7 +21,14 @@ const RoutesComponent = () => {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/room/:roomId" element={<MeetingRoom />}></Route>
+        <Route
+          path="/room/:roomId"
+          element={
+            <RequireAuth>
+              <MeetingRoom />
+            </RequireAuth>
+          }
+        ></Route>
       </Routes>
     </Router>
   );
