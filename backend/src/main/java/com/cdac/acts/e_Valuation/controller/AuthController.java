@@ -2,6 +2,7 @@ package com.cdac.acts.e_Valuation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,12 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @SuppressWarnings("rawtypes")
+	@GetMapping("/check")
+    public BodyBuilder hello() {
+        return ResponseEntity.ok();
+    }
+    
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterRequest request) {
         authService.register(request.getName(),request.getEmail(), request.getPassword());
