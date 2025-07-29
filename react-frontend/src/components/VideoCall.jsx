@@ -1,12 +1,9 @@
-// VideoCall.jsx
 import React, { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { v4 as uuidv4 } from "uuid";
 
-const VideoCall = () => {
+const VideoCall = ({ roomId }) => {
   const roomRef = useRef(null);
-  const { roomId } = useParams();
 
   useEffect(() => {
     const appId = 157428648;
@@ -26,7 +23,9 @@ const VideoCall = () => {
 
     zp.joinRoom({
       container: roomRef.current,
-      scenario: { mode: ZegoUIKitPrebuilt.VideoConference },
+      scenario: {
+        mode: ZegoUIKitPrebuilt.VideoConference,
+      },
       turnOnCameraWhenJoining: true,
       turnOnMicrophoneWhenJoining: true,
       showTextChat: true,
@@ -44,20 +43,7 @@ const VideoCall = () => {
     });
   }, [roomId]);
 
-  return (
-    <div
-      ref={roomRef}
-      style={{
-        display: "flex",
-        flex: 1,
-        height: "100%",
-        backgroundColor: "#1e1e1e",
-        overflow: "hidden",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    />
-  );
+  return <div className="video-call" ref={roomRef}></div>;
 };
 
 export default VideoCall;
