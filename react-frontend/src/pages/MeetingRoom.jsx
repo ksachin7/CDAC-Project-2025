@@ -89,6 +89,7 @@ const MeetingRoom = () => {
     <div
       style={{
         height: "100vh",
+        width: "100vw",
         display: "flex",
         flexDirection: "column",
         backgroundColor: "#121212",
@@ -101,8 +102,8 @@ const MeetingRoom = () => {
         style={{
           padding: "10px 20px",
           fontSize: "20px",
-          backgroundColor: "#1f1f1f",
-          borderBottom: "1px solid #333",
+          backgroundColor: "#1e2130",
+          borderBottom: "1px solid rgb(47, 55, 66)",
           margin: 0,
         }}
       >
@@ -125,8 +126,8 @@ const MeetingRoom = () => {
         <div
           style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
-          <div style={{ padding: "12px 20px", background: "#1f1f1f" }}>
-            <label style={{ marginRight: "8px" }}>Language:</label>
+          <div style={{ padding: "12px 20px", background: "#1e1e1e" }}>
+            {/* <label style={{ marginRight: "8px" }}>Language:</label> */}
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
@@ -148,7 +149,7 @@ const MeetingRoom = () => {
               onClick={runCode}
               style={{
                 padding: "6px 14px",
-                backgroundColor: "#4c6ef5",
+                backgroundColor: "#2d3748",
                 color: "white",
                 border: "none",
                 borderRadius: "4px",
