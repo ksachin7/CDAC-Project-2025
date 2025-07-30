@@ -3,8 +3,8 @@
 **/build/
 # **/.env
 **/.DS_Store
-**/npm-debug.log*
-**/yarn-debug.log*
+# **/npm-debug.log*
+# **/yarn-debug.log*
 **/yarn-error.log*
 **/package-lock.json
 # **/dist/
@@ -29,23 +29,23 @@ out/
 # **/.settings/
 **/.mvn/
 !**/.mvn/wrapper/maven-wrapper.jar
-**/logs/
+# **/logs/
 # **/application.properties
 # **/application.yml
-**/*.log
+# **/*.log
 **/*.swp
 # **/.env
 
 # === Maven Wrapper files (optional ignore) ===
-#mvnw
-#mvnw.cmd
+mvnw
+mvnw.cmd
 
 # === Test Coverage / Reports ===
 **/coverage/
 **/jacoco.exec
 
 # === Log Files ===
-*.log
+# *.log
 *.out
 
 # === Misc ===

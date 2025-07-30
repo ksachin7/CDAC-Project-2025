@@ -1,0 +1,70 @@
+.room-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background-color: #121212;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.room-header {
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #1e2130;
+  border-bottom: 1px solid rgb(47, 55, 66);
+  margin: 0;
+}
+
+.room-split {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.room-gutter {
+  width: 8px;
+  background-color: #444;
+  cursor: col-resize;
+}
+
+.left-pane, .right-pane {
+  height: 100%;
+  overflow: hidden;
+}
+
+.code-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.toolbar {
+  padding: 12px 20px;
+  background: #1e1e1e;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar select, .toolbar button {
+  padding: 6px 10px;
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 4px;
+}
+
+.output {
+  padding: 12px 20px;
+  background: #1e1e1e;
+  color: white;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.video-call {
+  width: 100%;
+  height: 100%;
+  background-color: #1e1e1e;
+}

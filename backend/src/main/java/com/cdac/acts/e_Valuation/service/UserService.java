@@ -37,4 +37,3 @@ public class UserService {
 			return user.get().getEmail();
 		}
 	}
-}
