@@ -2,13 +2,18 @@ import React from 'react'
 import '../styles/dashboard.css'
 import '../styles/index.css'
 import LogoutButton from '../components/LogoutButton.jsx'
+import UserProfile from './UserProfile.jsx'
+import ProfileIcon from '../components/ProfileIcon.jsx'
 
 function Dashboard() {
     return (
         <div id='dashboard-container'>
             <nav className='dashboard-nav'>
                 <h2>Dashboard</h2>
-                <LogoutButton />
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <ProfileIcon />
+                    <LogoutButton />
+                </div>
             </nav>
             <main>
                 Dashboard Contents

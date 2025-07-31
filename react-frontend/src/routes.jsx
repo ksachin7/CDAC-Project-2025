@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import DashBoard from "./pages/Dashboard.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import MeetingRoom from "./pages/MeetingRoom.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 
 const RoutesComponent = () => {
   return (
@@ -28,7 +29,16 @@ const RoutesComponent = () => {
               <MeetingRoom />
             </RequireAuth>
           }
-        ></Route>
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <UserProfile />
+            </RequireAuth>
+          }
+        />
+        <Route path="*" element={<HomePage />} />"
       </Routes>
     </Router>
   );
