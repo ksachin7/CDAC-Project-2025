@@ -5,10 +5,10 @@ import VideoCall from "../components/VideoCall";
 import "../styles/room.css";
 
 const MeetingRoom = () => {
-  const { roomId } = useParams();
+  // const { roomId } = useParams();
   return (
     <div className="room-container">
-      <h2 className="room-header">Room ID: {roomId}</h2>
+      <h2 className="room-header">Room ID: cc</h2>
       <Split
         sizes={[50, 50]}
         minSize={[300, 300]}
