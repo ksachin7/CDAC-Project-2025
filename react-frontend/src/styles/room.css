@@ -3,29 +3,33 @@
   width: 100vw;
   display: flex;
   flex-direction: column;
-  background-color: #121212;
+  background-color: #ffffff;
   color: #fff;
   font-family: "Segoe UI", sans-serif;
+  box-shadow: none;
 }
 
 .room-header {
   padding: 10px 20px;
   font-size: 20px;
-  background-color: #1e2130;
+  background-color: #10121b;
   border-bottom: 1px solid rgb(47, 55, 66);
   margin: 0;
+ 
 }
 
 .room-split {
   flex: 1;
   display: flex;
   overflow: hidden;
+   
 }
 
 .room-gutter {
   width: 8px;
   background-color: #444;
   cursor: col-resize;
+
 }
 
 .left-pane, .right-pane {

@@ -22,6 +22,7 @@ const MeetingRoom = () => {
         }}
       >
         <CodeEditorWithOutput />
+
         <VideoCall />
       </Split>
     </div>

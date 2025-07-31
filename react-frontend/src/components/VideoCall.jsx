@@ -53,7 +53,7 @@ const VideoCall = () => {
     }
   }
 
-  return <div ref={meetingUI} style={{ width: "100%", height: "100vh" }}></div>;
+  return <div ref={meetingUI} style={{ width: "100%", height: "95vh" }}></div>;
 };
 
 export default VideoCall;
