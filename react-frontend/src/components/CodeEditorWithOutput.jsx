@@ -25,10 +25,15 @@ const CodeEditorWithOutput = () => {
       });
 
       const result = response.data;
-      if (result.stdout) setOutput(result.stdout);
-      else if (result.stderr) setOutput(result.stderr);
-      else if (result.compile_output) setOutput(result.compile_output);
-      else setOutput("No output.");
+      if (result.stdout) {
+        setOutput(result.stdout);
+      } else if (result.stderr) {
+        setOutput(result.stderr);
+      } else if (result.compile_output) {
+        setOutput(result.compile_output);
+      } else {
+        setOutput("No output.");
+      }
     } catch (err) {
       setOutput(err.message || "Execution failed");
     }

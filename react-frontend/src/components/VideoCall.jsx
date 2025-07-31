@@ -1,49 +1,59 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
+import { useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { v4 as uuidv4 } from "uuid";
+import { v4 } from "uuid";
 
-const VideoCall = ({ roomId }) => {
-  const roomRef = useRef(null);
+const VideoCall = () => {
+  const { roomId } = useParams();
+  const hasJoinedRef = useRef(false);
 
-  useEffect(() => {
+  console.log("📦 Received roomId:", roomId);
+
+  async function meetingUI(element) {
+    if (hasJoinedRef.current || !element || !roomId) {
+      console.warn(
+        "⚠️ Already joined, element not available, or roomId missing."
+      );
+      return;
+    }
+
+    hasJoinedRef.current = true;
+
     const appId = 157428648;
     const serverSecret = "23fabf18f4b1a574412413a16f294a7b";
-    const userId = uuidv4();
+    const userId = v4();
     const userName = "Dev";
 
-    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-      appId,
-      serverSecret,
-      roomId,
-      userId,
-      userName
-    );
+    try {
+      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+        appId,
+        serverSecret,
+        roomId,
+        userId,
+        userName
+      );
 
-    const zp = ZegoUIKitPrebuilt.create(kitToken);
+      const ui = ZegoUIKitPrebuilt.create(kitToken);
 
-    zp.joinRoom({
-      container: roomRef.current,
-      scenario: {
-        mode: ZegoUIKitPrebuilt.VideoConference,
-      },
-      turnOnCameraWhenJoining: true,
-      turnOnMicrophoneWhenJoining: true,
-      showTextChat: true,
-      showScreenSharingButton: true,
-      showUserList: true,
-      showMyCameraToggleButton: true,
-      showMyMicrophoneToggleButton: true,
-      showLeavingView: true,
-      sharedLinks: [
-        {
-          name: "Copy Room Link",
-          url: window.location.href,
+      await ui.joinRoom({
+        container: element,
+        scenario: {
+          mode: ZegoUIKitPrebuilt.VideoConference,
         },
-      ],
-    });
-  }, [roomId]);
+        turnOnCameraWhenJoining: true,
+        turnOnMicrophoneWhenJoining: true,
+        showTextChat: true,
+        showScreenSharingButton: true,
+      });
 
-  return <div className="video-call" ref={roomRef}></div>;
+      console.log("🎉 Successfully joined the room.");
+    } catch (err) {
+      console.error("❌ Failed to join the room. Error:", err);
+      alert("Failed to join the room. Check console for details.");
+    }
+  }
+
+  return <div ref={meetingUI} style={{ width: "100%", height: "95vh" }}></div>;
 };
 
 export default VideoCall;
