@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cdac.acts.e_Valuation.dto.LoginRequest;
 import com.cdac.acts.e_Valuation.dto.LoginResponse;
 import com.cdac.acts.e_Valuation.dto.RegisterRequest;
+import com.cdac.acts.e_Valuation.dto.UserDTO;
+import com.cdac.acts.e_Valuation.entity.User;
 import com.cdac.acts.e_Valuation.service.AuthService;
+import com.cdac.acts.e_Valuation.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -21,6 +24,9 @@ public class AuthController {
     @Autowired
     private AuthService authService;
     
+    @Autowired
+    private UserService userService;
+    
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterRequest request) {
         authService.register(request.getName(),request.getEmail(), request.getPassword());
@@ -30,7 +36,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         String jwt = authService.login(request.getEmail(), request.getPassword());
-        return ResponseEntity.ok(new LoginResponse(jwt));
+        
+        User usr= userService.getUserByEmail(request.getEmail());
+        UserDTO usrResponse= new UserDTO(
+        		usr.getId(), 
+        		usr.getName(), 
+        		usr.getEmail(), 
+        		usr.getRole()
+        );
+        
+        return ResponseEntity.ok(new LoginResponse(jwt, usrResponse));
     }
-
 }

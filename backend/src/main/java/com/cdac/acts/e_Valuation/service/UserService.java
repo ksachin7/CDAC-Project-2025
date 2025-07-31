@@ -1,5 +1,8 @@
 package com.cdac.acts.e_Valuation.service;
 
-public class UserService {
+import com.cdac.acts.e_Valuation.entity.User;
 
+public interface UserService {
+
+	User getUserByEmail(String email);
 }
