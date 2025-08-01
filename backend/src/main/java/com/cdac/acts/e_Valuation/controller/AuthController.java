@@ -16,6 +16,7 @@ import com.cdac.acts.e_Valuation.service.AuthService;
 import com.cdac.acts.e_Valuation.service.UserService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/auth")
@@ -29,7 +30,9 @@ public class AuthController {
     
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterRequest request) {
-        authService.register(request.getName(),request.getEmail(), request.getPassword());
+    	System.out.printf("Role received: {}", request.getRole() != null ? request.getRole() : "null");
+        authService.register(request.getName(),request.getEmail(), request.getPassword(), request.getRole());
+
         return ResponseEntity.status(201).body("User registered successfully!");
     }
 

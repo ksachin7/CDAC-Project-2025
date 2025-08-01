@@ -14,40 +14,57 @@ import com.cdac.acts.e_Valuation.enums.Role;
 import com.cdac.acts.e_Valuation.repository.UserRepository;
 import com.cdac.acts.e_Valuation.security.TokenProvider;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class AuthService {
 
-    @Autowired private UserRepository userRepository;
-    @Autowired private PasswordEncoder passwordEncoder;
-    @Autowired private TokenProvider tokenProvider;
+  @Autowired
+  private UserRepository userRepository;
 
-    public void register(String name, String email, String password) {
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
-        user.setPasswordHash(passwordEncoder.encode(password));
-        user.setRole(Role.CANDIDATE);
-        System.out.println(user.getName());
-        System.out.println(user.getEmail());
-        System.out.println(user.getPassword());
-        userRepository.save(user);
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+  @Autowired
+  private TokenProvider tokenProvider;
+
+  public void register(
+    String name,
+    String email,
+    String password,
+    Role role
+  ) {
+    User user = new User();
+
+    user.setName(name);
+    user.setEmail(email);
+    user.setPasswordHash(passwordEncoder.encode(password));
+    user.setRole(
+      role == null ? Role.CANDIDATE : role
+    );
+
+    log.debug("Saving user to database: {}", user);
+
+    userRepository.save(user);
+  }
+
+  public String login(String email, String password) {
+    User user = userRepository
+      .findByEmail(email)
+      .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+
+    if (!passwordEncoder.matches(password, user.getPasswordHash())) {
+      throw new BadCredentialsException("Invalid credentials!");
     }
 
-    public String login(String email, String password) {
-        User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
-
-        if (!passwordEncoder.matches(password, user.getPasswordHash())) {
-            throw new BadCredentialsException("Invalid credentials!");
-        }
-
-        return tokenProvider.generateToken(
-            new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPasswordHash(),
-                List.of(new SimpleGrantedAuthority(user.getRole().name()))
-//                List.of()
-            )
-        );
-    }
+    return tokenProvider.generateToken(
+      new org.springframework.security.core.userdetails.User(
+        user.getEmail(),
+        user.getPasswordHash(),
+        List.of(new SimpleGrantedAuthority(user.getRole().name()))
+        //                List.of()
+      )
+    );
+  }
 }

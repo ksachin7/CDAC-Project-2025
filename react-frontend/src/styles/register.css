@@ -84,3 +84,19 @@
 .signin-link:hover {
   text-decoration: underline;
 }
+
+.form-radio-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: start;
+}
+
+.role-options .form-label {
+  font-size: 0.875rem;
+  color: #cbd5e0;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

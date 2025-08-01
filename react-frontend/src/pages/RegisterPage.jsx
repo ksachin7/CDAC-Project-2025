@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import '../styles/register.css';
 import { registerUser } from '../authService';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function RegisterPage() {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    confirmedPassword: ''
+    confirmedPassword: '',
+    role: ''
   });
 
   const [error, setError] = useState('');
@@ -26,7 +27,7 @@ function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const { name, email, password, confirmedPassword } = formData;
+    const { name, email, password, confirmedPassword, role } = formData;
 
     if (!name || !email || !password || !confirmedPassword) {
       alert("All feilds are required!");
@@ -45,7 +46,7 @@ function RegisterPage() {
 
     try {
       const response = await registerUser({
-        name, email, password
+        name, email, password, role
       });
       setError('');
       setSuccess("Registeration successful!");
@@ -54,7 +55,8 @@ function RegisterPage() {
         name: '',
         email: '',
         password: '',
-        confirmedPassword: ''
+        confirmedPassword: '',
+        role: ''
       })
 
       setTimeout(() => {
@@ -90,6 +92,35 @@ function RegisterPage() {
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input type="password" id="confirmPassword" className="form-input" placeholder="********" name="confirmedPassword" value={formData.confirmedPassword} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="role">Role</label>
+            <div className="role-options form-radio-group">
+              <label htmlFor="candidate" className="form-label">
+                <input
+                  type="radio"
+                  id="candidate"
+                  name="role"
+                  value="CANDIDATE"
+                  defaultChecked
+                  onChange={handleChange}
+                  required
+                />
+                CANDIDATE
+              </label>
+
+              <label htmlFor="interviewer" className="form-label">
+                <input
+                  type="radio"
+                  id="interviewer"
+                  name="role"
+                  value="INTERVIEWER"
+                  onChange={handleChange}
+                  required
+                />
+                INTERVIEWER
+              </label>
+            </div>
           </div>
 
           {error && <p style={{ color: 'red', fontSize: '0.875rem' }}>{error}</p>}
