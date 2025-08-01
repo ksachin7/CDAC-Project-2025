@@ -8,7 +8,6 @@ import ProfileIcon from '../components/ProfileIcon.jsx';
 
 function Dashboard() {
     const [user, setUser] = useState(null);
-
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
@@ -42,7 +41,7 @@ function Dashboard() {
                 ) : (
                     <div className="flex flex-col md:flex-row gap-6 w-full">
                         <div className="md:w-1/2 w-full">
-                            <MeetingForm interviewerId={userId} />
+                            <MeetingForm interviewerId={userId}  />
                         </div>
                         <div className="md:w-1/2 w-full">
                             <MeetingList userId={userId} />
