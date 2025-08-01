@@ -13,7 +13,7 @@ const MeetingForm = ({ interviewerId }) => {
 
             const intervieweeId=2;
             await api.post('/meeting/create', {
-                // meetingId:5,
+                
                 interviewerid:interviewerId,
                 candidateid:intervieweeId,
                 purpose,

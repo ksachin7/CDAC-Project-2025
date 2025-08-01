@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/dashboard.css';
 import '../styles/index.css';
 import LogoutButton from '../components/LogoutButton.jsx';
-import MeetingForm from "../components/MeetingForm.jsx"
+import MeetingForm from "../components/MeetingForm.jsx";
 import MeetingList from '../components/MeetingList.jsx';
 import ProfileIcon from '../components/ProfileIcon.jsx';
 
-
 function Dashboard() {
-    const [role] = useState('interviewer'); // 'candidate' or 'interviewer'
-    const [userId] = useState(1);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            parsedUser.role = "interviewer"; // overwrite role to 'interviewer'
+            setUser(parsedUser);
+        }
+    }, []);
+
+    if (!user) {
+        return <div className="text-white p-6">Loading...</div>;
+    }
+
+    const { role, id: userId } = user;
 
     return (
         <div className="min-h-screen w-full bg-black text-white">
             <nav className="flex justify-between items-center px-6 py-4 bg-gray-900 shadow w-full">
                 <h2 className="text-2xl font-bold text-blue-400">Dashboard</h2>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div className="flex items-center space-x-4">
                     <ProfileIcon />
                     <LogoutButton />
                 </div>
@@ -24,7 +37,7 @@ function Dashboard() {
             <main className="p-6 w-full">
                 {role === 'candidate' ? (
                     <div className="w-full">
-                        <MeetingList />
+                        <MeetingList userId={userId} />
                     </div>
                 ) : (
                     <div className="flex flex-col md:flex-row gap-6 w-full">
@@ -32,7 +45,7 @@ function Dashboard() {
                             <MeetingForm interviewerId={userId} />
                         </div>
                         <div className="md:w-1/2 w-full">
-                            <MeetingList />
+                            <MeetingList userId={userId} />
                         </div>
                     </div>
                 )}
