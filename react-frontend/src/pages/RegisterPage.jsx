@@ -11,7 +11,7 @@ function RegisterPage() {
     email: '',
     password: '',
     confirmedPassword: '',
-    role: ''
+    role: "CANDIDATE"
   });
 
   const [error, setError] = useState('');
