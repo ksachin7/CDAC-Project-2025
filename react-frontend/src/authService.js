@@ -8,7 +8,7 @@ export const registerUser = async (userData) => {
   }
   catch (error) {
     console.error("Error during registeration:", error);
-    throw error.response?.data?.error || "Registeration failed!";
+    throw error.response?.data?.error || error.message || "Registeration failed!";
   }
 }
 

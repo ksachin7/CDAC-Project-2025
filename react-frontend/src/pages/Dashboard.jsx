@@ -13,8 +13,8 @@ function Dashboard() {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
-            parsedUser.role = "interviewer"; // overwrite role to 'interviewer'
             setUser(parsedUser);
+            console.log("User loaded from localstorage: ", parsedUser);
         }
     }, []);
 
@@ -26,16 +26,16 @@ function Dashboard() {
 
     return (
         <div className="min-h-screen w-full bg-black text-white">
-            <nav className="flex justify-between items-center px-6 py-4 bg-gray-900 shadow w-full">
-                <h2 className="text-2xl font-bold text-blue-400">Dashboard</h2>
+            <nav className="flex justify-between items-center px-8 py-4 bg-gray-900 shadow w-full">
+                <h2 className="text-4xl font-bold text-blue-400">Dashboard</h2>
                 <div className="flex items-center space-x-4">
-                    <ProfileIcon />
+                    <ProfileIcon user={user} />
                     <LogoutButton />
                 </div>
             </nav>
 
             <main className="p-6 w-full">
-                {role === 'candidate' ? (
+                {role === 'candidate'.toUpperCase() ? (
                     <div className="w-full">
                         <MeetingList userId={userId} />
                     </div>

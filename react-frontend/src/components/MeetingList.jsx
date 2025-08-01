@@ -45,7 +45,7 @@ const MeetingList = ({ userId }) => {
 
     return (
         <div className="p-6 rounded-lg bg-gray-900 shadow-md text-white h-full">
-            <h3 className="text-xl font-semibold mb-4 text-blue-400">Your Meetings</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-blue-400">Your Meetings</h3>
             {meetings.length === 0 ? (
                 <p className="text-gray-300">No meetings yet.</p>
             ) : (

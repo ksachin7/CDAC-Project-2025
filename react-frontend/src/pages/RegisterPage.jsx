@@ -3,7 +3,7 @@ import '../styles/register.css';
 import { registerUser } from '../authService';
 import { useNavigate } from 'react-router-dom';
 
-
+// not in use
 function RegisterPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -50,7 +50,7 @@ function RegisterPage() {
       });
       setError('');
       setSuccess("Registeration successful!");
-      console.log("Registeration successful:", response.data);
+      console.log("Registeration successful:", response);
       setFormData({
         name: '',
         email: '',
