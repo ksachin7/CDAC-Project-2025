@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProfileIcon({ user, size = 50 }) {
+export default function ProfileIcon({ user, size = 40 }) {
   const navigate = useNavigate();
 
   const getInitials = (name) => {
