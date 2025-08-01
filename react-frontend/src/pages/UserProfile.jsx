@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { FaExchangeAlt } from "react-icons/fa";
+// import { switchRole } from "../userService";
 
 export default function UserProfile() {
   const [user, setUser] = useState(null);
@@ -9,6 +11,21 @@ export default function UserProfile() {
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
+  // const handleSwitchRole = async (currentRole) => {
+  //   const newRole = currentRole === "CANDIDATE" ? "INTERVIEWER" : "CANDIDATE";
+
+  //   try{
+  //     const res= await switchRole(newRole, user);
+  //     if(res.status === 200) {
+  //       const updateUser = { ...user, role: newRole };
+  //       setUser(updateUser);
+  //       localStorage.setItem("user", JSON.stringify(updateUser));
+  //     }
+  //   }catch(err){
+  //     console.error(err);
+  //   }
+  // }
 
   if (!user) {
     return <div style={styles.loading}>Loading user data...</div>;
@@ -34,6 +51,14 @@ export default function UserProfile() {
         <p>Email: {user.email}</p>
         {/* <p>Username: {user.username}</p> */}
         <p>Role: {user.role}</p>
+        {/* <button
+          style={styles.switchButton}
+          onClick={() => handleSwitchRole(user.role)}
+        >
+          <FaExchangeAlt style={{ marginRight: "8px" }} />
+          Switch Role
+        </button> */}
+
       </div>
     </div>
   );
@@ -61,7 +86,9 @@ const styles = {
     // backgroundColor: "#111",
     boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
     textAlign: "center",
-    maxWidth: "400px",
+    display: "grid",
+    alignItems: "center",
+    maxWidth: "600px",
     fontFamily: "Arial, sans-serif"
   },
   avatar: {
@@ -88,5 +115,18 @@ const styles = {
   name: {
     marginBottom: "10px",
     fontSize: "24px"
+  },
+  switchButton: {
+    marginTop: "20px",
+    padding: "10px 16px",
+    fontSize: "16px",
+    borderRadius: "6px",
+    border: "none",
+    backgroundColor: "#93b6db27",
+    color: "white",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   }
 };
