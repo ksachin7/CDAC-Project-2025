@@ -4,14 +4,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cdac.acts.e_Valuation.entity.ScheduleMeeting;
 import com.cdac.acts.e_Valuation.repository.ScheduleMeetingRepository;
 
+@Service
 public class ScheduleMeetingServiceImp implements ScheduleMeetingService {
 
 	@Autowired
 	ScheduleMeetingRepository SmRepo;
+	
+	@Autowired
+	HistoryMeetingServiceImp HmService;
 	
 	@Override
 	public void save(ScheduleMeeting sm) {
