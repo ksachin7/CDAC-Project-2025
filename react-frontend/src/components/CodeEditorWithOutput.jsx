@@ -33,7 +33,7 @@ const CodeEditorWithOutput = () => {
         stompClient.current.subscribe(`/topic/code/${roomId}`, (message) => {
           const body = JSON.parse(message.body);
           if (body.sender !== senderId.current) {
-            console.log("📥 [React] Received code update via WebSocket.");
+            // console.log("📥 [React] Received code update via WebSocket.");
             setCode(body.code);
             setLanguage(
               Object.keys(languageMap).find(
@@ -51,7 +51,7 @@ const CodeEditorWithOutput = () => {
   const handleCodeChange = (val) => {
     setCode(val);
     if (stompClient.current && stompClient.current.connected) {
-      console.log("📤 [React] Sending code update via WebSocket.");
+      // console.log("📤 [React] Sending code update via WebSocket.");
       stompClient.current.publish({
         destination: "/app/code.send",
         body: JSON.stringify({
