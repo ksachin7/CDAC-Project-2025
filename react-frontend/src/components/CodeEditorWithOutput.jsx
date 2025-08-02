@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { useParams } from "react-router-dom";
 
 const languageMap = {
   javascript: 63,
@@ -13,29 +17,68 @@ const CodeEditorWithOutput = () => {
   const [code, setCode] = useState("// Start typing...");
   const [language, setLanguage] = useState("javascript");
   const [output, setOutput] = useState("// Output will appear here...");
+  const [loading, setLoading] = useState(false);
+
+  const stompClient = useRef(null);
+  const senderId = useRef(uuidv4());
+  const { roomId } = useParams(); // room ID from URL
+
+  useEffect(() => {
+    const socket = new SockJS("http://localhost:8080/ws");
+    stompClient.current = new Client({
+      webSocketFactory: () => socket,
+      debug: (str) => console.log(str),
+      reconnectDelay: 5000,
+      onConnect: () => {
+        stompClient.current.subscribe(`/topic/code/${roomId}`, (message) => {
+          const body = JSON.parse(message.body);
+          if (body.sender !== senderId.current) {
+            // console.log("📥 [React] Received code update via WebSocket.");
+            setCode(body.code);
+            setLanguage(
+              Object.keys(languageMap).find(
+                (key) => languageMap[key] === body.languageId
+              ) || "javascript"
+            );
+          }
+        });
+      },
+    });
+    stompClient.current.activate();
+    return () => stompClient.current.deactivate();
+  }, [roomId]);
+
+  const handleCodeChange = (val) => {
+    setCode(val);
+    if (stompClient.current && stompClient.current.connected) {
+      // console.log("📤 [React] Sending code update via WebSocket.");
+      stompClient.current.publish({
+        destination: "/app/code.send",
+        body: JSON.stringify({
+          code: val,
+          languageId: languageMap[language],
+          sender: senderId.current,
+          roomId,
+        }),
+      });
+    }
+  };
 
   const runCode = async () => {
     const languageId = languageMap[language];
     setOutput("Running...");
-
     try {
       const response = await axios.post("http://localhost:8080/api/code/run", {
         languageId,
         sourceCode: code,
       });
-
       const result = response.data;
-      if (result.stdout) {
-        setOutput(result.stdout);
-      } else if (result.stderr) {
-        setOutput(result.stderr);
-      } else if (result.compile_output) {
-        setOutput(result.compile_output);
-      } else {
-        setOutput("No output.");
-      }
+      setOutput(
+        result.stdout || result.stderr || result.compile_output || "No output"
+      );
     } catch (err) {
-      setOutput(err.message || "Execution failed");
+      console.error(err);
+      setOutput("Execution failed");
     }
   };
 
@@ -48,14 +91,16 @@ const CodeEditorWithOutput = () => {
           <option value="cpp">C++</option>
           <option value="csharp">C#</option>
         </select>
-        <button onClick={runCode}>Run</button>
+        <button onClick={runCode} disabled={loading}>
+          {loading ? "Running..." : "Run"}
+        </button>
       </div>
       <Editor
         height="300px"
         theme="vs-dark"
         language={language === "cpp" ? "cpp" : language}
         value={code}
-        onChange={(val) => setCode(val)}
+        onChange={handleCodeChange}
         options={{ fontSize: 16 }}
       />
       <div className="output">
