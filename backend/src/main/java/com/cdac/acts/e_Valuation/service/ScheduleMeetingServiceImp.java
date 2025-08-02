@@ -1,0 +1,38 @@
+package com.cdac.acts.e_Valuation.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cdac.acts.e_Valuation.entity.ScheduleMeeting;
+import com.cdac.acts.e_Valuation.repository.ScheduleMeetingRepository;
+
+public class ScheduleMeetingServiceImp implements ScheduleMeetingService {
+
+	@Autowired
+	ScheduleMeetingRepository SmRepo;
+	
+	@Override
+	public void save(ScheduleMeeting sm) {
+		
+		SmRepo.save(sm);
+	}
+
+	@Override
+	public void remove(ScheduleMeeting sm) {
+		SmRepo.delete(sm);
+	}
+
+	@Override
+	public ScheduleMeeting getBySmId(Long smid) {
+		
+		return SmRepo.getById(smid);
+	}
+
+	@Override
+	public ScheduleMeeting getByMeetingId(Long id) {
+		return SmRepo.getByMeetingid(id).get();
+	}
+	
+	
+	
+	
+}
