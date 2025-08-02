@@ -35,7 +35,7 @@ const MeetingForm = ({ interviewerId }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="p-6 rounded-lg bg-gray-900 shadow-md text-white space-y-4 w-full h-full">
+        <form onSubmit={handleSubmit} className="p-6 rounded-lg bg-gray-900 shadow-md text-white space-y-4 w-full h-auto">
             <h3 className="text-2xl font-semibold text-blue-400">Create Meeting</h3>
             <input
                 type="email"
