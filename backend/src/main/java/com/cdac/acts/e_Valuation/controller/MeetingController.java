@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
+import com.cdac.acts.e_Valuation.dto.MeetingCreateResponse;
 import com.cdac.acts.e_Valuation.service.MeetingService;
 
 import jakarta.validation.Valid;
@@ -32,7 +33,9 @@ public class MeetingController {
 	
 	@GetMapping("/user/{userId}")
 	public ResponseEntity<List<MeetingCreate>> getMeetingsForUser(@PathVariable Long userId) {
-	    List<MeetingCreate> meetings = meetingService.getMeetingsByUserId(userId);
+		
+	    List<MeetingCreate> meetings = meetingService.getMeetingsByUserId(userId); // original
+	    List<MeetingCreateResponse> meetingsList = meetingService.getMeetingListByUserId(userId); // provides meetingid, candidatename, candidateemail, interviewername, intervieweremail, porpuse
 	    return ResponseEntity.ok(meetings);
 	}
 	
