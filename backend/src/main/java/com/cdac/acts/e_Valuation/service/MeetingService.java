@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
+import com.cdac.acts.e_Valuation.entity.HistoryMeeting;
 import com.cdac.acts.e_Valuation.entity.Meeting;
 import com.cdac.acts.e_Valuation.entity.ScheduleMeeting;
 import com.cdac.acts.e_Valuation.repository.MeetingRepository;
@@ -39,7 +40,13 @@ public class MeetingService {
 	}
 
 	public void MeetingHappen(Long meetingId) {
-		
+		ScheduleMeeting sm = SmService.getByMeetingId(meetingId);
+		Meeting meet = meetingRepo.getById(meetingId);
+		HistoryMeeting hm = new HistoryMeeting();
+		hm.setDate(sm.getDate());
+		hm.setHappen(true);
+		hm.setMeetingid(meetingId);
+		SmService.remove(sm);
 	}
 	
 	public List<MeetingCreate> getMeetingsByUserId(Long userId) {
