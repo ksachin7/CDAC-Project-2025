@@ -22,7 +22,18 @@ const VideoCall = () => {
     const appId = 157428648;
     const serverSecret = "23fabf18f4b1a574412413a16f294a7b";
     const userId = v4();
-    const userName = "Dev";
+
+    
+    let userName = "Guest";
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        userName = parsedUser.name || "Guest";
+      } catch (error) {
+        console.warn("⚠️ Could not parse user from localStorage:", error);
+      }
+    }
 
     try {
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
