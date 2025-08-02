@@ -104,4 +104,18 @@ public class MeetingService {
 	    return dtoList;
 	}
 
+	public MeetingCreateResponse getCompleteNotification(MeetingCreate meet) {
+		
+		MeetingCreateResponse dto = new MeetingCreateResponse();
+		dto.setCandidatname(userService.getUserById(meet.getCandidateid()).get().getName());
+    	dto.setCandidatemail(userService.getUserById(meet.getCandidateid()).get().getEmail());
+    	dto.setInterviewername(userService.getUserById(meet.getInterviewerid()).get().getName());
+    	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
+    	dto.setMeetingid(meet.getMeetingid());
+    	dto.setPurpose(meet.getPurpose());
+		return dto;
+	}
+	
+	 
+
 }
