@@ -34,6 +34,7 @@ const MeetingList = ({ userId }) => {
        
         const response = await api.get(`/meeting/user/${userId}`);
         setMeetings(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching meetings:", error);
       }
@@ -84,10 +85,10 @@ const MeetingList = ({ userId }) => {
                     <span className="font-semibold text-white">Purpose:</span> {meeting.purpose}
                   </p>
                   {!isCandidate &&<p className="text-gray-400">
-                    <span className="font-semibold text-white">Candidate:</span> {meeting.candidateid}(Name in future)
+                    <span className="font-semibold text-white">Candidate:</span> {meeting.candidatname}
                   </p>}
                   {isCandidate && <p className="text-gray-400">
-                    <span className="font-semibold text-white">Interviewer:</span> {meeting.interviewerid}(Name in future)
+                    <span className="font-semibold text-white">Interviewer:</span> {meeting.interviewername}
                   </p> }
                 </div>
 
