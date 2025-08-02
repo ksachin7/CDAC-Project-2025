@@ -1,5 +1,7 @@
 package com.cdac.acts.e_Valuation.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,11 @@ public class UserServiceImpl implements UserService {
 		user.setRole(role);
 		
 		userRepo.save(user);
+	}
+
+	@Override
+	public Optional<User> getUserById(Long id) {
+		return userRepo.findById(id);
 	}
 
 }

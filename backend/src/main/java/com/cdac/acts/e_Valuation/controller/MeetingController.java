@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
+import com.cdac.acts.e_Valuation.dto.MeetingCreateResponse;
 import com.cdac.acts.e_Valuation.service.MeetingService;
 
 import jakarta.validation.Valid;
@@ -31,9 +32,11 @@ public class MeetingController {
     private SimpMessagingTemplate messagingTemplate;
 	
 	@GetMapping("/user/{userId}")
-	public ResponseEntity<List<MeetingCreate>> getMeetingsForUser(@PathVariable Long userId) {
-	    List<MeetingCreate> meetings = meetingService.getMeetingsByUserId(userId);
-	    return ResponseEntity.ok(meetings);
+	public ResponseEntity<List<MeetingCreateResponse>> getMeetingsForUser(@PathVariable Long userId) {
+		
+	 //   List<MeetingCreate> meetings = meetingService.getMeetingsByUserId(userId); // original
+	    List<MeetingCreateResponse> meetingsList = meetingService.getMeetingListByUserId(userId); // provides meetingid, candidatename, candidateemail, interviewername, intervieweremail, porpuse
+	    return ResponseEntity.ok(meetingsList);
 	}
 	
 	@PostMapping("/create")
@@ -45,10 +48,14 @@ public class MeetingController {
         notification.setCandidateid(request.getCandidateid());
         notification.setInterviewerid(request.getInterviewerid());
         notification.setPurpose(request.getPurpose());
+        
+        MeetingCreateResponse completeNotification = meetingService.getCompleteNotification(notification);
+        
+        
 
         // Send to both candidate and interviewer
-        messagingTemplate.convertAndSend("/queue/user/" + request.getCandidateid(), notification);
-        messagingTemplate.convertAndSend("/queue/user/" + request.getInterviewerid(), notification);
+        messagingTemplate.convertAndSend("/queue/user/" + request.getCandidateid(), completeNotification);
+        messagingTemplate.convertAndSend("/queue/user/" + request.getInterviewerid(), completeNotification);
 
         return ResponseEntity.status(201).body("Meeting Created and notification sent!");
     }

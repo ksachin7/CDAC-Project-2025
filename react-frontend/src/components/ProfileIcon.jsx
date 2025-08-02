@@ -9,16 +9,14 @@ export default function ProfileIcon({ user, size = 40 }) {
     if (!name) return "👤";
     const nameParts = name.trim().split(" ");
     return nameParts.length >= 2
-      ? nameParts[0][0] + nameParts[1][0]
-      : nameParts[0][0];
+      ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
+      : nameParts[0][0].toUpperCase();
   };
-  // console.log("USer: ", user);
 
   const togglePopup = () => {
     setShowPopup((prev) => !prev);
   };
 
-  // Close popup when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (
@@ -33,46 +31,25 @@ export default function ProfileIcon({ user, size = 40 }) {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  const avatarStyle = {
-    width: size,
-    height: size,
-    borderRadius: "50%",
-    backgroundColor: "#ddd",
-    margin: "0 30px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: size / 2.5,
-    color: "#eee",
-    fontWeight: "bold",
-    userSelect: "none",
-    overflow: "hidden",
-    cursor: "pointer",
-    position: "relative"
-  };
-
-  const popupStyle = {
-    position: "absolute",
-    top: "calc(100% + 8px)",
-    left: 0,
-    width: "max-content",
-    backgroundColor: "#2d3748",
-    userSelect: "none",
-    // border: "1px solid #ccc",
-    // borderRadius: "8px",
-    padding: "10px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-    zIndex: 100
+  const avatarSize = {
+    width: `${size}px`,
+    height: `${size}px`,
+    fontSize: `${size / 2.5}px`,
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <div ref={avatarRef} onClick={togglePopup} style={avatarStyle}>
+    <div className="relative inline-block">
+      <div
+        ref={avatarRef}
+        onClick={togglePopup}
+        className="rounded-full bg-gray-800 text-blue-400 font-bold flex items-center justify-center cursor-pointer overflow-hidden border border-blue-500 shadow-md hover:scale-105 transition duration-200"
+        style={{ ...avatarSize }}
+      >
         {user?.avatarUrl ? (
           <img
             src={user.avatarUrl}
             alt="User avatar"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            className="w-full h-full object-cover"
           />
         ) : (
           getInitials(user?.name)
@@ -80,10 +57,18 @@ export default function ProfileIcon({ user, size = 40 }) {
       </div>
 
       {showPopup && (
-        <div ref={popupRef} style={popupStyle}>
-          <strong>{user?.name || "Unknown"}</strong>
-          <p>{user?.email}</p>
-          <p><b>Role: </b><em>{user?.role}</em></p>
+        <div
+          ref={popupRef}
+          className="absolute mt-2 right-0  bg-gray-900 border border-blue-700 text-white rounded-xl shadow-xl p-4 z-50 w-48"
+        >
+          <p className="font-bold text-blue-400 text-lg capitalize">
+            {user?.name || "Unknown"}
+          </p>
+          <p className="text-gray-300 text-base">{user?.email}</p>
+          <p className="mt-1 text-base">
+            <span className="font-semibold text-gray-400">Role:</span>{" "}
+            <span className="italic text-blue-300">{user?.role}</span>
+          </p>
         </div>
       )}
     </div>

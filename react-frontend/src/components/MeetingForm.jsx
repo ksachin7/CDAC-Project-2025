@@ -8,14 +8,22 @@ const MeetingForm = ({ interviewerId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // const response = await axios.get(`/interviewee/id?email=${email}`);
-            // const intervieweeId = response.data.id;
-
-            const intervieweeId=2;
+            const response = await api.post(
+                '/user/getbyemail',
+                email, // pass plain string
+                {
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                }
+            );
+            const intervieweeId = response.data.id;
+            console.log("id" + intervieweeId);
+            //const intervieweeId=2;
             await api.post('/meeting/create', {
-                
-                interviewerid:interviewerId,
-                candidateid:intervieweeId,
+
+                interviewerid: interviewerId,
+                candidateid: intervieweeId,
                 purpose,
             });
 
@@ -27,7 +35,7 @@ const MeetingForm = ({ interviewerId }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="p-6 rounded-lg bg-gray-900 shadow-md text-white space-y-4 w-full h-full">
+        <form onSubmit={handleSubmit} className="p-6 rounded-lg bg-gray-900 shadow-md text-white space-y-4 w-full h-auto">
             <h3 className="text-2xl font-semibold text-blue-400">Create Meeting</h3>
             <input
                 type="email"

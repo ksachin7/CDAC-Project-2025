@@ -28,7 +28,7 @@ export async function login(email, password) {
     return { token, user };
   } catch (err) {
     console.error("Login error:", err);
-    throw new Error("Login failed. Please check your credentials.");
+    throw new Error(err.response?.data || err.message || "Login failed. Please check your credentials.");
   }
 }
 
