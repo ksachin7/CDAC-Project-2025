@@ -1,70 +1,65 @@
-import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 const VideoCall = () => {
   const { roomId } = useParams();
-  const hasJoinedRef = useRef(false);
+  const navigate = useNavigate();
+  const meetingContainerRef = useRef(null);
+  const [hasJoined, setHasJoined] = useState(false);
 
-  console.log("📦 Received roomId:", roomId);
-
-  async function meetingUI(element) {
-    if (hasJoinedRef.current || !element || !roomId) {
-      console.warn(
-        "⚠️ Already joined, element not available, or roomId missing."
-      );
-      return;
-    }
-
-    hasJoinedRef.current = true;
+  useEffect(() => {
+    if (!roomId || hasJoined || !meetingContainerRef.current) return;
 
     const appId = 157428648;
     const serverSecret = "23fabf18f4b1a574412413a16f294a7b";
-    const userId = v4();
+    const userId = uuidv4();
 
-    
     let userName = "Guest";
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        userName = parsedUser.name || "Guest";
-      } catch (error) {
-        console.warn("⚠️ Could not parse user from localStorage:", error);
-      }
-    }
-
     try {
-      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-        appId,
-        serverSecret,
-        roomId,
-        userId,
-        userName
-      );
-
-      const ui = ZegoUIKitPrebuilt.create(kitToken);
-
-      await ui.joinRoom({
-        container: element,
-        scenario: {
-          mode: ZegoUIKitPrebuilt.VideoConference,
-        },
-        turnOnCameraWhenJoining: true,
-        turnOnMicrophoneWhenJoining: true,
-        showTextChat: true,
-        showScreenSharingButton: true,
-      });
-
-      console.log("🎉 Successfully joined the room.");
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (storedUser?.name) userName = storedUser.name;
     } catch (err) {
-      console.error("❌ Failed to join the room. Error:", err);
-      alert("Failed to join the room. Check console for details.");
+      console.warn("User parse failed");
     }
-  }
 
-  return <div ref={meetingUI} style={{ width: "100%", height: "95vh" }}></div>;
+    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+      appId,
+      serverSecret,
+      roomId,
+      userId,
+      userName
+    );
+
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+    zp.joinRoom({
+      container: meetingContainerRef.current,
+      scenario: {
+        mode: ZegoUIKitPrebuilt.VideoConference,
+      },
+      turnOnCameraWhenJoining: true,
+      turnOnMicrophoneWhenJoining: true,
+      showScreenSharingButton: true,
+      showTextChat: true,
+      showUserList: true,
+      onLeaveRoom: () => {
+        console.log("🎯 User exited meeting, navigating to dashboard.");
+        navigate("/dashboard");
+      },
+    });
+
+    console.log("🎉 Joined Zego room:", roomId);
+    setHasJoined(true);
+  }, [roomId, hasJoined, navigate]);
+
+  return (
+    <div
+      ref={meetingContainerRef}
+      style={{ width: "100%", height: "95vh" }}
+    ></div>
+  );
 };
 
 export default VideoCall;
