@@ -41,7 +41,7 @@ const VideoCall = () => {
       },
       turnOnCameraWhenJoining: true,
       turnOnMicrophoneWhenJoining: true,
-      showScreenSharingButton: true,
+      showScreenSharingButton: false,
       showTextChat: true,
       showUserList: true,
       onLeaveRoom: () => {
