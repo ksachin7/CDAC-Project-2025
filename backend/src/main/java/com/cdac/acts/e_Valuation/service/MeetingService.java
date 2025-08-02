@@ -20,12 +20,15 @@ public class MeetingService {
 	private MeetingRepository meetingRepo;
 	
 	@Autowired
-	 private ScheduleMeetingService SmService;
+	 private ScheduleMeetingServiceImp SmService;
+	
+	@Autowired
+	private HistoryMeetingServiceImp HmService;
 	
 	@Autowired
 	private EmailService emailService;
 	
-	public Long create(Long cid, Long iid, String porpose) {
+	public Long create(Long cid, Long iid, String porpose, LocalDate date) {
 		Meeting meet = new Meeting();
 		meet.setCandidateid(cid);
 		meet.setInterviewerid(iid);
@@ -33,7 +36,7 @@ public class MeetingService {
 		meetingRepo.save(meet);
 		ScheduleMeeting sm = new ScheduleMeeting();
 		sm.setMeetingid(meet.getMeetingid());
-		sm.setDate(LocalDate.now());
+		sm.setDate(date);
 		SmService.save(sm);
 		//emailService.sendSimpleEmail("19dcs009@lnmiit.ac.in", "Testing", "hello");
 		return meet.getMeetingid();
@@ -46,6 +49,7 @@ public class MeetingService {
 		hm.setDate(sm.getDate());
 		hm.setHappen(true);
 		hm.setMeetingid(meetingId);
+		HmService.save(hm);
 		SmService.remove(sm);
 	}
 	

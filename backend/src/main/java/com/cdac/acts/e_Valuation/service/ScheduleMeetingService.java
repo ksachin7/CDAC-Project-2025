@@ -1,6 +1,6 @@
 package com.cdac.acts.e_Valuation.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import com.cdac.acts.e_Valuation.entity.ScheduleMeeting;
 
@@ -13,4 +13,8 @@ public interface ScheduleMeetingService {
 	ScheduleMeeting getBySmId(Long smid);
 	
 	ScheduleMeeting getByMeetingId(Long id);
+	
+	List<ScheduleMeeting> getAllMeeting();
+	
+	void removePrevious();
 }

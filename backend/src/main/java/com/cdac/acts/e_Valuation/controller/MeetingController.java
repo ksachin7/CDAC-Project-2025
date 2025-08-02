@@ -1,10 +1,12 @@
 package com.cdac.acts.e_Valuation.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.quartz.LocalDataSourceJobStore;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +38,7 @@ public class MeetingController {
 	
 	@PostMapping("/create")
     public ResponseEntity<String> createMeeting(@Valid @RequestBody MeetingCreate request) {
-        Long meetingId = meetingService.create(request.getCandidateid(), request.getInterviewerid(), request.getPurpose());
+        Long meetingId = meetingService.create(request.getCandidateid(), request.getInterviewerid(), request.getPurpose(), LocalDate.now().plusDays(1));
 
         MeetingCreate notification = new MeetingCreate();
         notification.setMeetingid(meetingId);
