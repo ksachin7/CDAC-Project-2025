@@ -77,7 +77,7 @@ const MeetingList = ({ userId }) => {
               className="p-5 bg-gray-800 rounded-xl border border-gray-700 hover:shadow-xl transition-shadow"
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm w-full md:w-auto">
+                <div className={`grid ${isCandidate ? 'grid-cols-3' : 'grid-cols-2'} gap-x-4 gap-y-1 text-sm w-full md:w-auto`}>
                   {/* <p className="text-gray-400">
                     <span className="font-semibold text-white">ID:</span> {meeting.meetingid}
                   </p> */}
@@ -90,6 +90,9 @@ const MeetingList = ({ userId }) => {
                   {isCandidate && <p className="text-gray-400">
                     <span className="font-semibold text-white">Interviewer:</span> {meeting.interviewername}
                   </p> }
+                  <p className="text-gray-400 ">
+                    <span className="font-semibold text-white">Join Before:</span> {meeting.date}
+                  </p>
                 </div>
 
                 <button
