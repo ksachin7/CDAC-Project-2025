@@ -43,6 +43,7 @@ public class MeetingService {
 		sm.setMeetingid(meet.getMeetingid());
 		sm.setDate(date);
 		SmService.save(sm);
+		System.out.println(sm);
 		//emailService.sendSimpleEmail("19dcs009@lnmiit.ac.in", "Testing", "hello");
 		return meet.getMeetingid();
 	}
@@ -97,6 +98,8 @@ public class MeetingService {
 	    	dto.setCandidatemail(userService.getUserById(meet.getCandidateid()).get().getEmail());
 	    	dto.setInterviewername(userService.getUserById(meet.getInterviewerid()).get().getName());
 	    	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
+	    	
+	    	dto.setDate(sm.getDate());
 	    	dto.setMeetingid(meet.getMeetingid());
 	    	dto.setPurpose(meet.getPurpose());
 	    	dtoList.add(dto);
@@ -104,7 +107,7 @@ public class MeetingService {
 	    return dtoList;
 	}
 
-	public MeetingCreateResponse getCompleteNotification(MeetingCreate meet) {
+	public MeetingCreateResponse getCompleteNotification(MeetingCreate meet,LocalDate date) {
 		
 		MeetingCreateResponse dto = new MeetingCreateResponse();
 		dto.setCandidatname(userService.getUserById(meet.getCandidateid()).get().getName());
@@ -113,6 +116,7 @@ public class MeetingService {
     	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
     	dto.setMeetingid(meet.getMeetingid());
     	dto.setPurpose(meet.getPurpose());
+    	dto.setDate(date);
 		return dto;
 	}
 	

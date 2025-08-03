@@ -4,6 +4,7 @@ import api from '../api';
 const MeetingForm = ({ interviewerId }) => {
     const [email, setEmail] = useState('');
     const [purpose, setPurpose] = useState('');
+    const [date, setDate] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,6 +26,7 @@ const MeetingForm = ({ interviewerId }) => {
                 interviewerid: interviewerId,
                 candidateid: intervieweeId,
                 purpose,
+                date
             });
 
             alert('Meeting created successfully!');
@@ -53,6 +55,15 @@ const MeetingForm = ({ interviewerId }) => {
                 className="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
             />
+            <input
+                type="date"
+                min={new Date().toISOString().slice(0, 10)} // restrict past dates
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+
             <button
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-white py-2 px-4 rounded w-full"
