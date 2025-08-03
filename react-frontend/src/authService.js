@@ -4,11 +4,18 @@ export const registerUser = async (userData) => {
   try {
     const response = await api.post("/auth/register", userData);
     console.log("Registration successful:", response.data);
-    return response.data;
+    return { success: true, message: response.data };
   }
   catch (error) {
+    let errorMessage = "Unexpected error occurred";
     console.error("Error during registeration:", error);
-    throw error.response?.data?.error || error.message || "Registeration failed!";
+    if (!error.response) {
+      errorMessage = "Cannot connect to the server. Please try again later.";
+    } else if (error.response.status === 409) {
+      errorMessage = error.response.data.detail || "User already exists.";
+    } else {
+      errorMessage = error.response.data.message || errorMessage;
+    } return { success: false, message: errorMessage };
   }
 }
 

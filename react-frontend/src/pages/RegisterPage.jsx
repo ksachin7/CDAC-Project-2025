@@ -48,24 +48,34 @@ function RegisterPage() {
       const response = await registerUser({
         name, email, password, role
       });
-      setError('');
-      setSuccess("Registeration successful!");
-      console.log("Registeration successful:", response);
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmedPassword: '',
-        role: ''
-      })
+      if (response && response.success) {
+        setError('');
+        setSuccess(response.message || "Registeration successful!");
+        console.log("Registeration successful:", response);
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          confirmedPassword: '',
+          role: ''
+        })
 
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
-
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      } else {
+        // Handle known registration failure
+        setError(response.message || "Registration failed!");
+        setSuccess('');
+      }
       // window.location.href = '/login';
     } catch (err) {
-      setError(err);
+      const message =
+        err?.message?.includes("Network Error") || !err.response
+          ? "Unable to connect to the server. Please try again later."
+          : "An unexpected error occurred.";
+
+      setError(message);
       console.error("Error during registeration:", err);
       // setError(err.response?.data?.error || "Registeration failed!");
       setSuccess('');
@@ -123,8 +133,8 @@ function RegisterPage() {
             </div>
           </div>
 
-          {error && <p style={{ color: 'red', fontSize: '0.875rem' }}>{error}</p>}
-          {success && <p style={{ color: 'green', fontSize: '0.875rem' }}>{success}</p>}
+          {error && <p style={{ color: '#ff6666', fontSize: '0.875rem' }}>{error}</p>}
+          {success && <p style={{ color: 'lightgreen', fontSize: '0.875rem' }}>{success}</p>}
 
           <button type="submit" className="register-button">Register</button>
         </form>
