@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
 import com.cdac.acts.e_Valuation.dto.MeetingCreateResponse;
+import com.cdac.acts.e_Valuation.dto.MeetingCreateWithDate;
 import com.cdac.acts.e_Valuation.service.MeetingService;
 
 import jakarta.validation.Valid;
@@ -40,8 +41,11 @@ public class MeetingController {
 	}
 	
 	@PostMapping("/create")
-    public ResponseEntity<String> createMeeting(@Valid @RequestBody MeetingCreate request) {
-        Long meetingId = meetingService.create(request.getCandidateid(), request.getInterviewerid(), request.getPurpose(), LocalDate.now().plusDays(1));
+    public ResponseEntity<String> createMeeting(@Valid @RequestBody MeetingCreateWithDate request) {
+		
+		 LocalDate date = (request.getDate() != null) ? request.getDate() : LocalDate.now().plusDays(1);
+		    
+        Long meetingId = meetingService.create(request.getCandidateid(), request.getInterviewerid(), request.getPurpose(),date);
 
         MeetingCreate notification = new MeetingCreate();
         notification.setMeetingid(meetingId);
@@ -49,7 +53,7 @@ public class MeetingController {
         notification.setInterviewerid(request.getInterviewerid());
         notification.setPurpose(request.getPurpose());
         
-        MeetingCreateResponse completeNotification = meetingService.getCompleteNotification(notification);
+        MeetingCreateResponse completeNotification = meetingService.getCompleteNotification(notification,date);
         
         
 

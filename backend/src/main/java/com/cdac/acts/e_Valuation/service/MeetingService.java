@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
@@ -27,7 +28,7 @@ public class MeetingService {
 	private HistoryMeetingServiceImp HmService;
 	
 	@Autowired
-	private EmailService emailService;
+	private EmailServiceImpl emailService;
 	
 	@Autowired
 	private UserService userService;
@@ -43,8 +44,38 @@ public class MeetingService {
 		sm.setMeetingid(meet.getMeetingid());
 		sm.setDate(date);
 		SmService.save(sm);
-		//emailService.sendSimpleEmail("19dcs009@lnmiit.ac.in", "Testing", "hello");
+		System.out.println(sm);
+		try {
+			meetingCreateEmail(meet.getMeetingid());
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		return meet.getMeetingid();
+	}
+	
+	public void meetingCreateEmail(Long meetingid) {
+		Meeting meet = getMeetingById(meetingid);
+		ScheduleMeeting Smeeting = SmService.getByMeetingId(meetingid);
+		String to = userService.getUserById(meet.getCandidateid()).get().getEmail();
+		String name = userService.getUserById(meet.getCandidateid()).get().getName();
+		String purpose = meet.getPurpose();
+		String date = Smeeting.getDate().toString();
+		String Iname = userService.getUserById(meet.getInterviewerid()).get().getEmail();
+		String text = "Hi "+name+",\r\n"
+				+ "\r\n"
+				+ "You're invited to a meeting to discuss "+purpose+" .\r\n"
+				+ "\r\n"
+				+ "Here are the details:\r\n"
+				+ "\r\n"
+				+ "Date: "+date+"\r\n"
+				+ "\r\n"
+				+ "Looking forward to seeing you there.\r\n"
+				+ "\r\n"
+				+ "Best regards,\r\n"
+				+ "\r\n"
+				+ Iname;
+		emailService.meetingCreateEmailToCandidate(to, text);
 	}
 
 	public void MeetingHappen(Long meetingId) {
@@ -97,6 +128,8 @@ public class MeetingService {
 	    	dto.setCandidatemail(userService.getUserById(meet.getCandidateid()).get().getEmail());
 	    	dto.setInterviewername(userService.getUserById(meet.getInterviewerid()).get().getName());
 	    	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
+	    	
+	    	dto.setDate(sm.getDate());
 	    	dto.setMeetingid(meet.getMeetingid());
 	    	dto.setPurpose(meet.getPurpose());
 	    	dtoList.add(dto);
@@ -104,7 +137,7 @@ public class MeetingService {
 	    return dtoList;
 	}
 
-	public MeetingCreateResponse getCompleteNotification(MeetingCreate meet) {
+	public MeetingCreateResponse getCompleteNotification(MeetingCreate meet,LocalDate date) {
 		
 		MeetingCreateResponse dto = new MeetingCreateResponse();
 		dto.setCandidatname(userService.getUserById(meet.getCandidateid()).get().getName());
@@ -113,9 +146,13 @@ public class MeetingService {
     	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
     	dto.setMeetingid(meet.getMeetingid());
     	dto.setPurpose(meet.getPurpose());
+    	dto.setDate(date);
 		return dto;
 	}
 	
+	public Meeting getMeetingById(Long id) {
+		return meetingRepo.getById(id);
+	}
 	 
 
 }
