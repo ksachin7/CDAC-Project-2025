@@ -22,5 +22,10 @@ public class HistoryMeetingServiceImp implements HistoryMeetingService {
 		HMRepo.delete(hm);
 	}
 
+	@Override
+	public HistoryMeeting getByMeetingId(Long id) {
+		return HMRepo.getByMeetingid(id);
+	}
+
 	
 }

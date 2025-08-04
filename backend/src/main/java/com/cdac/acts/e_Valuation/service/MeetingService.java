@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import com.cdac.acts.e_Valuation.dto.HistoryMeetingResponse;
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
 import com.cdac.acts.e_Valuation.dto.MeetingCreateResponse;
 import com.cdac.acts.e_Valuation.entity.HistoryMeeting;
@@ -78,14 +78,17 @@ public class MeetingService {
 		emailService.meetingCreateEmailToCandidate(to, text);
 	}
 
-	public void MeetingHappen(Long meetingId) {
+	public void MeetingHappen(Long meetingId, int rating, String review) {
 		SmService.removePrevious();
+		Meeting meet = getMeetingById(meetingId);
 		ScheduleMeeting sm = SmService.getByMeetingId(meetingId);
-		Meeting meet = meetingRepo.getById(meetingId);
 		HistoryMeeting hm = new HistoryMeeting();
 		hm.setDate(sm.getDate());
 		hm.setHappen(true);
 		hm.setMeetingid(meetingId);
+		hm.setPurpose(meet.getPurpose());
+		hm.setRating(rating);
+		hm.setReview(review);
 		HmService.save(hm);
 		SmService.remove(sm);
 	}
@@ -128,7 +131,6 @@ public class MeetingService {
 	    	dto.setCandidatemail(userService.getUserById(meet.getCandidateid()).get().getEmail());
 	    	dto.setInterviewername(userService.getUserById(meet.getInterviewerid()).get().getName());
 	    	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
-	    	
 	    	dto.setDate(sm.getDate());
 	    	dto.setMeetingid(meet.getMeetingid());
 	    	dto.setPurpose(meet.getPurpose());
@@ -154,5 +156,22 @@ public class MeetingService {
 		return meetingRepo.getById(id);
 	}
 	 
+	public List<HistoryMeetingResponse> getListOfHistoryMeetingByUserId(Long id){
+		List<HistoryMeetingResponse> list = new ArrayList<HistoryMeetingResponse>();
+		List<MeetingCreateResponse> meet = getMeetingListByUserId(id);
+		for(MeetingCreateResponse m : meet) {
+			HistoryMeeting hm = HmService.getByMeetingId(m.getMeetingid());
+			HistoryMeetingResponse hmr = new HistoryMeetingResponse();
+			hmr.setHistorymeetingid(hm.getHistorymeetingid());
+			hmr.setMeetingid(hm.getMeetingid());
+			hmr.setHappen(hm.isHappen());
+			hmr.setPurpose(hm.getPurpose());
+			hmr.setRating(hm.getRating());
+			hmr.setDate(hm.getDate());
+			hmr.setReview(hm.getReview());
+			list.add(hmr);
+		}
+		return list;
+	}
 
 }
