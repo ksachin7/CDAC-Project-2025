@@ -15,44 +15,11 @@ This project is a full-stack interview platform designed to facilitate online te
 
 ## **Architecture Overview**
 
-![alt text](./react-frontend/public/architecture.diag.png)
+![architecture-diag.](./frontend/public/architecture.diag.png)
 
 ### Project Workflow
 
-<div style="width: 400px; overflow-x: auto;">
-
-```mermaid
-flowchart TD
-    A[User opens app] --> B[User clicks 'Join Interview']
-    B --> C[Send HTTP Request to /api/interview/join]
-    C --> D{Backend - JWT Verification}
-    D -->|Valid JWT| E[Fetch Interview Info from DB]
-    D -->|Invalid JWT| F[Return Error: Unauthorized]
-    E --> G[Generate Session Token + Config]
-    G --> H[Return Session Token to User]
-    H --> I[User Joins Interview]
-    I --> J[WebRTC & WebSocket Initialization]
-    J --> K[Candidate joins session]
-    F --> L[Return Unauthorized Error to User]
-    L --> M[User is not able to join]
-    
-    %% Define Styles
-    classDef validJWT fill:#d5e8d4,stroke:#4CAF50;
-    classDef invalidJWT fill:#f8cecc,stroke:#FF0000;
-    classDef error fill:#f8cecc,stroke:#FF0000;
-    
-    %% Assign Styles
-    class D validJWT;
-    class F invalidJWT;
-    class L error;
-    
-    %% Arrows for success and failure paths
-    D --> E;
-    D --> F;
-```
-
-</div>
-
+![auth-flow](./frontend/public/auth.png)
 <!-- 
 ## **Testing**
 
@@ -89,13 +56,22 @@ flowchart TD
 
 ## Installation and Start Instructions
 
-### Prerequisites
+## Prerequisites
 
-* **Node.js** (v14 or later)
-* **npm**
-* **Java** (JDK 17 or later)
-* **Maven**
-* **MySQL** (or your preferred database)
+Before you begin, make sure the following tools are installed on your system:
+
+### Development Tools
+
+* **Node.js** (v14 or later)  [Download Node.js](https://nodejs.org/)
+* **npm** (comes with Node.js)
+* **Java** (JDK 17 or later)  [Download JDK](https://www.oracle.com/java/technologies/javase-downloads.html)
+* **Maven**  [Download Maven](https://maven.apache.org/download.cgi)
+* **MySQL** (or your preferred database)  [Download MySQL](https://dev.mysql.com/downloads/)
+
+<!-- ### 🐳 Containerization -->
+
+* **Docker**  [Install Docker](https://docs.docker.com/get-docker/)
+<!-- * **Docker Compose**  [Install Docker Compose](https://docs.docker.com/compose/install/) -->
 
 ### Clone the Repository
 
@@ -104,7 +80,7 @@ git clone https://github.com/ksachin7/CDAC-Project-2025.git
 cd CDAC-Project-2025
 ```
 
----
+<!-- ---
 
 #### Build and Run the Backend
 
@@ -127,5 +103,30 @@ npm run dev
 ```
 
 This will start the React app on [http://localhost:5173](http://localhost:5173).
+
+---
+ -->
+
+### 🐳 Pull Docker Images
+
+```bash
+docker pull ksachin7/evaluation-frontend:latest
+docker pull ksachin7/evaluation-backend:latest
+```
+
+---
+
+### 🐳 Build and Start Services
+
+```bash
+docker-compose up --build
+```
+
+This command will:
+
+* Build the latest images for all services
+* Start the containers as defined in `docker-compose.yml`
+
+---
 
 See [Contribution Guide](/CONTRIBUTING.md)

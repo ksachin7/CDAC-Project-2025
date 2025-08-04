@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
   ],
   define: {
-    global: 'window', // ✅ sets global for browser
+    global: 'window', // sets global for browser
   },
   resolve: {
     alias: {
@@ -21,8 +21,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       plugins: [
-        rollupNodePolyFill(), // ✅ polyfill Node built-ins
+        rollupNodePolyFill(), // polyfill Node built-ins
       ],
     },
   },
+  // server: {
+  //   proxy: {
+  //     '/api': 'http://localhost:8080',
+  //   }
+  // }
 });

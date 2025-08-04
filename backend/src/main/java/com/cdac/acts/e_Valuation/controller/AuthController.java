@@ -1,13 +1,13 @@
 package com.cdac.acts.e_Valuation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cdac.acts.e_Valuation.Exception.UserAlreadyExistsException;
 import com.cdac.acts.e_Valuation.dto.LoginRequest;
 import com.cdac.acts.e_Valuation.dto.LoginResponse;
 import com.cdac.acts.e_Valuation.dto.RegisterRequest;
@@ -35,8 +35,12 @@ public class AuthController {
 		boolean success = authService.register(request.getName(), request.getEmail(), request.getPassword(),
 				request.getRole());
 
+//		if (!success)
+//			return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this email already exists!");
+		
 		if (!success)
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this email already exists!");
+		    throw new UserAlreadyExistsException("User with this email already exists!");
+
 
 		return ResponseEntity.status(201).body("User registered successfully!");
 	}

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "../styles/login.css";
-import { login } from "../authService";
+import { login } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+
+
+
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -15,7 +19,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
       setError("");
-      console.log("Login successful, redirecting to dashboard...");
+      console.log("Login successful, redirecting to dashboard...") ;
       navigate("/dashboard");
     } catch (err) {
       setError("Login failed. Please check your credentials.");
