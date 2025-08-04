@@ -10,7 +10,7 @@ const VideoCall = () => {
   const [hasJoined, setHasJoined] = useState(false);
 
 
-  const [showOverlay, setShowOverlay] = useState(false);
+  
 
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const VideoCall = () => {
     let userName = "Guest";
     try {
       const storedUser = JSON.parse(localStorage.getItem("user"));
+      console.log(storedUser.role);
       if (storedUser?.name) userName = storedUser.name;
     } catch (err) {
       console.warn("User parse failed");
