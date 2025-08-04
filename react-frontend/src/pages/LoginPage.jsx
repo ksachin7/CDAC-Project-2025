@@ -3,6 +3,10 @@ import "../styles/login.css";
 import { login } from "../authService";
 import { useNavigate } from "react-router-dom";
 
+
+
+
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +19,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
       setError("");
-      console.log("Login successful, redirecting to dashboard...");
+      console.log("Login successful, redirecting to dashboard...") ;
       navigate("/dashboard");
     } catch (err) {
       setError("Login failed. Please check your credentials.");
