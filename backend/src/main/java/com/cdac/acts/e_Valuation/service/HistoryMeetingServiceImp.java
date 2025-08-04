@@ -22,4 +22,5 @@ public class HistoryMeetingServiceImp implements HistoryMeetingService {
 		HMRepo.delete(hm);
 	}
 
+	
 }
