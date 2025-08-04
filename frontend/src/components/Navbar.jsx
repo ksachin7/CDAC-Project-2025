@@ -31,9 +31,9 @@ const [isJwt,setjwt]=useState(null);
     
 <nav className="w-screen bg-black px-8 py-4   sticky top-0   gap-3   flex justify-between items-center">
 
-<div   className='transform transition duration-300 hover:scale-110 font-semibold   hover:text-blue-400 text-xl' >Dashboard</div>
+<div onClick={()=>{navigate('/dashboard')}}  className='transform transition duration-300 hover:scale-110 font-semibold   hover:text-blue-400 text-xl' >Dashboard</div>
 
-<div className='transform transition duration-300 hover:scale-110'>About</div>
+<div  onClick={()=>{navigate('/About')}}        className='transform transition duration-300 hover:scale-110'>About</div>
 
 <div  onClick={()=>{navigate('/')}}  className='transform transition duration-300 hover:scale-110'>Hompage</div>
 
