@@ -20,7 +20,7 @@ export default function LoginPage() {
       await login(email, password);
       setError("");
       console.log("Login successful, redirecting to dashboard...") ;
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       setError("Login failed. Please check your credentials.");
       console.error("Login error:", err);
@@ -28,7 +28,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-page">
+    <div className="login-page flex flex-col">
       <div className="login-container">
         <h2 className="login-title">Login</h2>
         <form className="login-form" onSubmit={handleSubmit}>
@@ -73,6 +73,26 @@ export default function LoginPage() {
           </a>
         </p>
       </div>
+
+      <div 
+      onClick={() => navigate("/")} 
+      className="flex items-center gap-2 cursor-pointer text-blue-400 hover:text-blue-600 transition mt-4"
+    >
+      {/* Left Arrow SVG */}
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        className="w-6 h-6" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor" 
+        strokeWidth={2}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      
+      <span className="font-semibold">Move to Home Page</span>
+    </div>
+
     </div>
   );
 }
