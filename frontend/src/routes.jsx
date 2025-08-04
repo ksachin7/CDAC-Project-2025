@@ -9,7 +9,7 @@ import UserProfile from "./pages/UserProfile.jsx";
 
 const RoutesComponent = () => {
   return (
-    <Router>
+    
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -40,7 +40,7 @@ const RoutesComponent = () => {
         />
         <Route path="*" element={<HomePage />} />
       </Routes>
-    </Router>
+  
   );
 };
 
