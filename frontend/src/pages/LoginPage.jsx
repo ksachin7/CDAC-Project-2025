@@ -68,7 +68,7 @@ export default function LoginPage() {
         </form>
         <p className="signup-text">
           Don’t have an account?{" "}
-          <Link href="/register" className="signup-link">
+          <Link to="/register" className="signup-link">
             Sign up
           </Link>
         </p>
