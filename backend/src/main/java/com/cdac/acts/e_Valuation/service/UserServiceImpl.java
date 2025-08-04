@@ -15,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
 
 	@Override
 	public User getUserByEmail(String email) {
@@ -44,5 +45,6 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> getUserById(Long id) {
 		return userRepo.findById(id);
 	}
-
+	
+	
 }

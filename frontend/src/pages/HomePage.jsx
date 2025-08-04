@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Monitor } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
+
+
 
 const HomePage = () => {
   const [meetingId, setMeetingId] = useState("");
@@ -9,8 +13,13 @@ const HomePage = () => {
   //     navigate(`/room/${roomId}`);
   //   }
   return (
-    <div className="w-screen min-h-screen bg-black text-white">
-      <header className="w-screen bg-black px-8 py-4 flex justify-between items-center">
+    <div className="w-screen min-h-screen bg-black   text-white">
+
+
+
+      <Navbar/>
+      {/* <header className="w-screen bg-black px-8 py-4 flex justify-between items-center">
+        <Navbar/>
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-white rounded-full"></div>
           <span className="text-gray-400">/</span>
@@ -24,13 +33,8 @@ const HomePage = () => {
           <span className="text-gray-400">Companies</span>
         </nav>
 
-        <button
-          className="px-4 py-2 text-sm bg-yellow-100 text-black rounded-full"
-          onClick={() => navigate("/login")}
-        >
-          Get Started — It's Free
-        </button>
-      </header>
+        
+      </header> */}
 
       <main className="w-screen px-8 py-20">
         {/* <div className='w-full bg-white max-w-2xl mx-auto text-center mb-12'>

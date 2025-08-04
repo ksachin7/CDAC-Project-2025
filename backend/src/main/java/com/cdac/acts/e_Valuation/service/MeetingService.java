@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
@@ -27,7 +28,7 @@ public class MeetingService {
 	private HistoryMeetingServiceImp HmService;
 	
 	@Autowired
-	private EmailService emailService;
+	private EmailServiceImpl emailService;
 	
 	@Autowired
 	private UserService userService;
@@ -44,8 +45,37 @@ public class MeetingService {
 		sm.setDate(date);
 		SmService.save(sm);
 		System.out.println(sm);
-		//emailService.sendSimpleEmail("19dcs009@lnmiit.ac.in", "Testing", "hello");
+		try {
+			meetingCreateEmail(meet.getMeetingid());
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		return meet.getMeetingid();
+	}
+	
+	public void meetingCreateEmail(Long meetingid) {
+		Meeting meet = getMeetingById(meetingid);
+		ScheduleMeeting Smeeting = SmService.getByMeetingId(meetingid);
+		String to = userService.getUserById(meet.getCandidateid()).get().getEmail();
+		String name = userService.getUserById(meet.getCandidateid()).get().getName();
+		String purpose = meet.getPurpose();
+		String date = Smeeting.getDate().toString();
+		String Iname = userService.getUserById(meet.getInterviewerid()).get().getEmail();
+		String text = "Hi "+name+",\r\n"
+				+ "\r\n"
+				+ "You're invited to a meeting to discuss "+purpose+" .\r\n"
+				+ "\r\n"
+				+ "Here are the details:\r\n"
+				+ "\r\n"
+				+ "Date: "+date+"\r\n"
+				+ "\r\n"
+				+ "Looking forward to seeing you there.\r\n"
+				+ "\r\n"
+				+ "Best regards,\r\n"
+				+ "\r\n"
+				+ Iname;
+		emailService.meetingCreateEmailToCandidate(to, text);
 	}
 
 	public void MeetingHappen(Long meetingId) {
@@ -120,6 +150,9 @@ public class MeetingService {
 		return dto;
 	}
 	
+	public Meeting getMeetingById(Long id) {
+		return meetingRepo.getById(id);
+	}
 	 
 
 }

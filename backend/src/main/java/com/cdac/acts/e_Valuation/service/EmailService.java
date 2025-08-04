@@ -1,22 +1,13 @@
 package com.cdac.acts.e_Valuation.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
+public interface EmailService {
+	public void sendSimpleEmail(String to, String subject, String text);
+	
+	public void authenticateEmail(Long code, String to);
+	
+	public void meetingEndEmail(Long meetingid);
 
-@Service
-public class EmailService {
+	void meetingCreateEmailToCandidate(String to, String text);
 
-    @Autowired
-    private JavaMailSender mailSender;
-
-    public void sendSimpleEmail(String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("your_email@gmail.com");
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        mailSender.send(message);
-    }
+	void registerEmail(String to, String text);
 }
