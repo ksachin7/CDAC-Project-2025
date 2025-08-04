@@ -38,7 +38,7 @@ public class SecurityConfig {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.addAllowedOrigin("http://localhost:5173");
+		config.addAllowedOrigin("https://cdac-project-2025-1.onrender.com/");
 		config.addAllowedOrigin("http://35.154.102.159");
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
