@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/login.css";
 import { login } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -68,9 +68,9 @@ export default function LoginPage() {
         </form>
         <p className="signup-text">
           Don’t have an account?{" "}
-          <a href="/register" className="signup-link">
+          <Link href="/register" className="signup-link">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
