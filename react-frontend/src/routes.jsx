@@ -7,6 +7,7 @@ import RequireAuth from "./components/RequireAuth.jsx";
 import MeetingRoom from "./pages/MeetingRoom.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import Setmeetingfeedback from "./pages/Setmeetingfeedback.jsx";
+import Aboutpage from "./pages/Aboutpage.jsx";
 
 const RoutesComponent = () => {
   return (
@@ -45,6 +46,7 @@ const RoutesComponent = () => {
             </RequireAuth>
           }
         />
+        <Route path="/About"   element={<Aboutpage/>}      />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </Router>
