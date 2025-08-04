@@ -1,7 +1,7 @@
 import RoutesComponent from './routes';
 import './styles/App.css'
 import { createGlobalStyle } from 'styled-components';
-import TestBackendAPI from './TestBackendAPI'
+import TestBackendAPI from './components/TestBackendAPI'
 
 const GlobalStyle = createGlobalStyle`
   body {

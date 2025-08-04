@@ -1,0 +1,55 @@
+services:
+  backend:
+    build: ./backend
+    image: ksachin7/evaluation-backend:latest
+    container_name: evaluation-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/evaluation
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+    # volumes:
+    #   - ./backend:/app # Optional for dev
+    depends_on:
+      - db
+    networks:
+      - auth-net
+
+  frontend:
+    build: ./frontend
+    image: ksachin7/evaluation-frontend:latest
+    container_name: evaluation-frontend
+    ports:
+      - "5173:80"
+    volumes:
+      - ./frontend:/app # Optional for dev
+    depends_on:
+      - backend
+    networks:
+      - auth-net
+
+  db:
+    image: mysql:8
+    container_name: mysql-db
+    restart: always
+    environment:
+      # MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: evaluation
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - auth-net
+
+volumes:
+  mysql_data:
+
+networks:
+  auth-net:
+    driver: bridge
