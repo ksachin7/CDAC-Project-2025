@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ import navigate
-import api from "../api"; // your axios instance
+import { useNavigate } from "react-router-dom"; 
+import api from "../api"; 
 
 function MeetingHistory() {
   const [meetings, setMeetings] = useState([]);
-  const navigate = useNavigate(); // ✅ initialize navigate
+  const navigate = useNavigate(); 
 
   // Fetch meeting history from backend
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        const userId = user?.id; // Adjust if your user object has different key
+        const userId = user?.id; 
 
         console.log(userId);
 
@@ -34,7 +34,7 @@ function MeetingHistory() {
             Meeting History
           </h1>
 
-          {/* ✅ Navigation button */}
+          {/* Navigation button */}
           <button
             onClick={() => navigate("/")} // navigate to homepage
             className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition"
