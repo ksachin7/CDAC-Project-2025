@@ -1,55 +1,74 @@
-import React from 'react'
-import { useNavigate } from "react-router-dom";
-import { useState,useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
-    const navigate=useNavigate();
-    const [user, setUser] = useState(null);
-const [isJwt,setjwt]=useState(null);
+  const navigate = useNavigate();
+  const [isJwt, setJwt] = useState(null);
 
-    useEffect(() => {
-      const storedtoken = localStorage.getItem("jwt");
-      if (storedtoken) {
-        setjwt(storedtoken);
-      }
-    }, []);
+  useEffect(() => {
+    const storedToken = localStorage.getItem('jwt');
+    if (storedToken) {
+      setJwt(storedToken);
+    }
+  }, []);
 
-
-    const handleLogout = () => {
-   
-        localStorage.removeItem("jwt");
-        console.log("User logged out.");
-        setjwt(null);
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1000)
-      }
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    console.log('User logged out.');
+    setJwt(null);
+    setTimeout(() => navigate('/'), 1000);
+  };
 
   return (
-    
-<nav className="w-screen bg-black px-8 py-4   sticky top-0   gap-3   flex justify-between items-center">
+    <nav className="w-full bg-black px-12 py-4 sticky top-0 z-10 flex justify-between items-center">
+      <div
+        className="text-emerald-400 text-3xl font-bold cursor-pointer transform transition duration-300 hover:scale-105"
+        onClick={() => navigate('/')}
+      >
+        eValuation
+      </div>
 
-<div onClick={()=>{navigate('/dashboard')}}  className='transform transition duration-300 hover:scale-110 font-semibold   hover:text-blue-400 text-xl' >Dashboard</div>
-
-<div  onClick={()=>{navigate('/About')}}        className='transform transition duration-300 hover:scale-110'>About</div>
-
-<div  onClick={()=>{navigate('/')}}  className='transform transition duration-300 hover:scale-110'>Hompage</div>
-
-<div className='transform transition duration-300 hover:scale-110'>Report</div>
-
-{!isJwt?<button
-          className="px-4 py-2 text-sm       bg-yellow-100 text-black rounded-full  transform transition duration-300 hover:scale-110       "
-          onClick={() => navigate("/login")}
+      {/* Navigation Links */}
+      <div className="flex items-center gap-6 text-white text-lg">
+        <div
+          className="cursor-pointer transform transition duration-300 hover:scale-110"
+          onClick={() => navigate('/about')}
         >
-          Get Started — It's Free
-        </button>:<button  onClick={handleLogout} className='transform transition duration-300 hover:scale-110   hover:bg-red-500  '   >Logout</button>}
+          About
+        </div>
 
+        {/* <div
+          className="cursor-pointer transform transition duration-300 hover:scale-110"
+          onClick={() => navigate('/')}
+        >
+          Homepage
+        </div> */}
 
-</nav>
+        <div
+          className="cursor-pointer transform transition duration-300 hover:scale-110"
+          onClick={() => navigate('/report')}
+        >
+          Report
+        </div>
 
-  )
+        {!isJwt ? (
+          <button
+            className="px-4 py-2 text-sm bg-yellow-100 text-black rounded-full transform transition duration-300 hover:scale-110"
+            onClick={() => navigate('/login')}
+          >
+            Get Started — It's Free
+          </button>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 text-sm text-white bg-red-600 rounded-full transform transition duration-300 hover:scale-110 hover:bg-red-500"
+          >
+            Logout
+          </button>
+        )}
+      </div>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;
