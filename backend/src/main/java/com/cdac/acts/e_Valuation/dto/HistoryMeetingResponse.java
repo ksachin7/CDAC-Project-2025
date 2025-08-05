@@ -13,4 +13,8 @@ public class HistoryMeetingResponse {
 	private String purpose;
 	private int rating;
 	private String review;
+	private String candidatname;
+	private String candidatemail;
+	private String interviewername;
+	private String intervieweremail;
 }
