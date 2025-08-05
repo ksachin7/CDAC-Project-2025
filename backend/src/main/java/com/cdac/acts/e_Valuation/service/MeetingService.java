@@ -127,14 +127,16 @@ public class MeetingService {
 	    for(ScheduleMeeting sm : smlist) {
 	    	MeetingCreateResponse dto = new MeetingCreateResponse();
 	    	Meeting meet = meetingRepo.getById(sm.getMeetingid());
-	    	dto.setCandidatname(userService.getUserById(meet.getCandidateid()).get().getName());
-	    	dto.setCandidatemail(userService.getUserById(meet.getCandidateid()).get().getEmail());
-	    	dto.setInterviewername(userService.getUserById(meet.getInterviewerid()).get().getName());
-	    	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
-	    	dto.setDate(sm.getDate());
-	    	dto.setMeetingid(meet.getMeetingid());
-	    	dto.setPurpose(meet.getPurpose());
-	    	dtoList.add(dto);
+	    	if(meet.getCandidateid()==userId || meet.getInterviewerid()==userId) {
+	    		dto.setCandidatname(userService.getUserById(meet.getCandidateid()).get().getName());
+		    	dto.setCandidatemail(userService.getUserById(meet.getCandidateid()).get().getEmail());
+		    	dto.setInterviewername(userService.getUserById(meet.getInterviewerid()).get().getName());
+		    	dto.setIntervieweremail(userService.getUserById(meet.getInterviewerid()).get().getEmail());
+		    	dto.setDate(sm.getDate());
+		    	dto.setMeetingid(meet.getMeetingid());
+		    	dto.setPurpose(meet.getPurpose());
+		    	dtoList.add(dto);
+	    	}
 	    }
 	    return dtoList;
 	}
