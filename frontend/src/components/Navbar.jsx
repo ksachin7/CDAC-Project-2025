@@ -5,11 +5,15 @@ import { useState,useEffect } from 'react';
 
 function Navbar() {
     const navigate=useNavigate();
-    const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState(null);
+    
 const [isJwt,setjwt]=useState(null);
 
     useEffect(() => {
       const storedtoken = localStorage.getItem("jwt");
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userId = user?.id;
+      setUserId(userId);
       if (storedtoken) {
         setjwt(storedtoken);
       }
@@ -37,7 +41,10 @@ const [isJwt,setjwt]=useState(null);
 
 <div  onClick={()=>{navigate('/')}}  className='transform transition duration-300 hover:scale-110'>Hompage</div>
 
-<div className='transform transition duration-300 hover:scale-110'>Report</div>
+
+{isJwt?<div   onClick={()=>{navigate(`/meetingreport/${userId}`)}}     className='transform transition duration-300 hover:scale-110'>Report</div>:""}
+
+
 
 {!isJwt?<button
           className="px-4 py-2 text-sm       bg-yellow-100 text-black rounded-full  transform transition duration-300 hover:scale-110       "
