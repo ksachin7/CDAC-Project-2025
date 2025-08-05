@@ -1,5 +1,7 @@
 package com.cdac.acts.e_Valuation.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,36 +19,56 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
-		return http
-				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-				.csrf(csrf -> csrf.disable())
-				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) // required for /h2-console to load
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/auth/**", "/h2-console/**", "/api/code/**", "/ws/**").permitAll()
-								.anyRequest().authenticated())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
-	}
+  @Bean
+  public SecurityFilterChain filterChain(
+    HttpSecurity http,
+    JwtAuthenticationFilter jwtFilter
+  ) throws Exception {
+    return http
+      .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+      .csrf(csrf -> csrf.disable())
+      .headers(headers ->
+        headers.frameOptions(frameOptions -> frameOptions.disable())
+      ) // required for /h2-console to load
+      .authorizeHttpRequests(auth ->
+        auth
+          .requestMatchers(
+            "/auth/**",
+            "/h2-console/**",
+            "/api/code/**",
+            "/ws/**"
+          )
+          .permitAll()
+          .anyRequest()
+          .authenticated()
+      )
+      .sessionManagement(session ->
+        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      )
+      .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+      .build();
+  }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration config = new CorsConfiguration();
-		config.addAllowedOrigin("http://localhost:5173");
-		config.addAllowedOrigin("http://35.154.102.159");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
-		config.setAllowCredentials(true);
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowedOriginPatterns(List.of(
+    		"http://localhost:5173", 
+    		"35.154.102.159:5173", 
+    		"https://evaluation.onrender.com"
+    		));
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
+    config.setAllowCredentials(true);
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
 
-		return source;
-	}
+    return source;
+  }
 }

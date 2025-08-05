@@ -7,7 +7,8 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/evaluation
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/evaluation
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/evaluation
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
     # volumes:
@@ -30,25 +31,41 @@ services:
     networks:
       - auth-net
 
+  # db:
+  #   image: mysql:8
+  #   container_name: mysql-db
+  #   restart: always
+  #   environment:
+  #     # MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: evaluation
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: password
+  #     MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   networks:
+  #     - auth-net
+
   db:
-    image: mysql:8
-    container_name: mysql-db
+    image: postgres:15
+    container_name: postgres-db
     restart: always
     environment:
-      # MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: evaluation
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      POSTGRES_DB: evaluation
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - auth-net
 
 volumes:
-  mysql_data:
+  # mysql_data:
+  postgres_data:
 
 networks:
   auth-net:
