@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cdac.acts.e_Valuation.dto.HistoryMeetingResponse;
 import com.cdac.acts.e_Valuation.dto.MeetingCreate;
 import com.cdac.acts.e_Valuation.dto.MeetingCreateResponse;
 import com.cdac.acts.e_Valuation.dto.MeetingCreateWithDate;
+import com.cdac.acts.e_Valuation.dto.MeetingFinishRequest;
 import com.cdac.acts.e_Valuation.service.MeetingService;
 
 import jakarta.validation.Valid;
@@ -63,5 +65,19 @@ public class MeetingController {
 
         return ResponseEntity.status(201).body("Meeting Created and notification sent!");
     }
+	
+	@PostMapping("/finish")
+	public ResponseEntity<String> meetingFinish(@Valid @RequestBody MeetingFinishRequest request)
+	{
+		meetingService.MeetingHappen(request.getMeetingid(), request.getRating(), request.getReview());
+		return ResponseEntity.status(201).body("Meeting Has Finished");
+	}
+	
+	@GetMapping("/history/{userId}")
+	public ResponseEntity<List<HistoryMeetingResponse>> getMeetingHistoryForUser(@PathVariable Long userId) {
+		
+	    List<HistoryMeetingResponse> meetingsHistoryList = meetingService.getListOfHistoryMeetingByUserId(userId); 
+	    return ResponseEntity.ok(meetingsHistoryList);
+	}
 
 }

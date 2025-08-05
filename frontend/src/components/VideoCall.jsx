@@ -9,6 +9,10 @@ const VideoCall = () => {
   const meetingContainerRef = useRef(null);
   const [hasJoined, setHasJoined] = useState(false);
 
+
+  
+
+
   useEffect(() => {
     if (!roomId || hasJoined || !meetingContainerRef.current) return;
 
@@ -19,6 +23,7 @@ const VideoCall = () => {
     let userName = "Guest";
     try {
       const storedUser = JSON.parse(localStorage.getItem("user"));
+      console.log(storedUser.role);
       if (storedUser?.name) userName = storedUser.name;
     } catch (err) {
       console.warn("User parse failed");
@@ -46,7 +51,7 @@ const VideoCall = () => {
       showUserList: true,
       onLeaveRoom: () => {
         console.log("🎯 User exited meeting, navigating to dashboard.");
-        navigate("/dashboard");
+        navigate(`/meetingfeedback/${roomId}`);
       },
     });
 
@@ -55,7 +60,7 @@ const VideoCall = () => {
   }, [roomId, hasJoined, navigate]);
 
   return (
-    <div
+    <div 
       ref={meetingContainerRef}
       style={{ width: "100%", height: "95vh" }}
     ></div>

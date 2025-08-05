@@ -27,4 +27,11 @@ public class HistoryMeeting {
 	private LocalDate date;
 	@Column(nullable = false)
 	private boolean happen;
+	@Column(nullable = false)
+	private String purpose;
+	@Column(nullable = false)
+	private int rating;
+	@Column(nullable = false)
+	private String review;
+	
 }
