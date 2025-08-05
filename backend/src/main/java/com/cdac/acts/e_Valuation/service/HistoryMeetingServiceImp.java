@@ -1,5 +1,7 @@
 package com.cdac.acts.e_Valuation.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,9 @@ public class HistoryMeetingServiceImp implements HistoryMeetingService {
 		return HMRepo.getByMeetingid(id);
 	}
 
-	
+	@Override
+	public List<HistoryMeeting> getAll() {
+		
+		return HMRepo.findAll();
+	}
 }
