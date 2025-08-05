@@ -19,6 +19,33 @@ export const registerUser = async (userData) => {
   }
 }
 
+
+
+export async function submitreview(meetid,rating,review){
+
+  try{
+  
+  const res=await api.post("/meeting/finish",{meetingid:meetid ,rating,review});
+  console.log(res.data)
+  
+  }catch(err){
+  
+    console.error("Login error:", err);
+    throw new Error(err.response?.data || err.message || "review submission faliled");
+  
+  }
+  
+  
+  }
+
+
+
+
+
+
+
+
+
 export async function login(email, password) {
   try {
     const res = await api.post("/auth/login", { email, password });
