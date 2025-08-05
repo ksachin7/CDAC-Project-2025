@@ -3,6 +3,7 @@ import Editor from "@monaco-editor/react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import axios from "axios";
+import api from "../api";
 import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 
@@ -24,7 +25,7 @@ const CodeEditorWithOutput = () => {
   const { roomId } = useParams(); // room ID from URL
 
   useEffect(() => {
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS(`${import.meta.env.VITE_API_URL}/ws`);
     stompClient.current = new Client({
       webSocketFactory: () => socket,
       debug: (str) => console.log(str),
@@ -68,7 +69,7 @@ const CodeEditorWithOutput = () => {
     const languageId = languageMap[language];
     setOutput("Running...");
     try {
-      const response = await axios.post("http://localhost:8080/api/code/run", {
+      const response = await api.post(`api/code/run`, {
         languageId,
         sourceCode: code,
       });
