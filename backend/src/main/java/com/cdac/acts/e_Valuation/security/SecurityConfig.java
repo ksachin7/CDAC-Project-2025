@@ -57,17 +57,11 @@ public class SecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
-<<<<<<< Updated upstream
     config.setAllowedOriginPatterns(List.of(
     		"http://localhost:5173", 
     		"35.154.102.159:5173", 
     		"https://evaluation.onrender.com"
     		));
-=======
-    // config.addAllowedOrigin("http://localhost:5173");
-    // config.addAllowedOrigin("http://35.154.102.159");
-    config.addAllowedOrigin("*");
->>>>>>> Stashed changes
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
     config.setAllowCredentials(true);
