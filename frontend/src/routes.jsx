@@ -8,6 +8,10 @@ import MeetingRoom from "./pages/MeetingRoom.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import Setmeetingfeedback from "./pages/Setmeetingfeedback.jsx";
 import Aboutpage from "./pages/Aboutpage.jsx";
+import MeetingHistory from "./pages/MeetingHistory.jsx";
+
+
+
 
 const RoutesComponent = () => {
   return (
@@ -38,6 +42,15 @@ const RoutesComponent = () => {
               <Setmeetingfeedback/>
             </RequireAuth>
           }       />
+
+<Route  path="/meetingreport/:userid"
+          element={
+            <RequireAuth>
+              <MeetingHistory/>
+            </RequireAuth>
+          }       />
+
+
         <Route
           path="/profile"
           element={
