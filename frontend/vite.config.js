@@ -1,13 +1,22 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import rollupNodePolyFill from 'rollup-plugin-polyfill-node';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
     react(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'public/_redirects', // source file
+          dest: '.'                 // destination: root of dist/
+        },
+      ],
+    }),
   ],
   define: {
-    global: 'window', // sets global for browser
+    global: 'window',
   },
   resolve: {
     alias: {
@@ -20,14 +29,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      plugins: [
-        rollupNodePolyFill(), // polyfill Node built-ins
-      ],
+      plugins: [rollupNodePolyFill()],
     },
   },
-  // server: {
-  //   proxy: {
-  //     '/api': 'http://localhost:8080',
-  //   }
-  // }
 });

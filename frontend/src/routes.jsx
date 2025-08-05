@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
@@ -11,7 +11,7 @@ import Aboutpage from "./pages/Aboutpage.jsx";
 
 const RoutesComponent = () => {
   return (
-    <Router>
+    
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -49,7 +49,7 @@ const RoutesComponent = () => {
         <Route path="/About"   element={<Aboutpage/>}      />
         <Route path="*" element={<HomePage />} />
       </Routes>
-    </Router>
+  
   );
 };
 
