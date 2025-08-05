@@ -3,6 +3,7 @@ import "../styles/login.css";
 import { login } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function LoginPage() {
       await login(email, password);
       setError("");
       console.log("Login successful, redirecting to dashboard...");
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError("Login failed. Please check your credentials.");
       console.error("Login error:", err);
@@ -65,15 +66,19 @@ export default function LoginPage() {
         </form>
         <p className="signup-text">
           Don’t have an account?{" "}
-          <a href="/register" className="signup-link">
+          <Link to="/register" className="signup-link">
             Sign up
-          </a>
+          </Link>
         </p>
-        <p className="signup-text" onClick={() => navigate("/")} role="button" tabIndex="0">
-          <a href="#" className="text-gray-400 inline-flex items-center align-center whitespace-nowrap">
+
+        <p className="back-text">
+          <Link
+            to="/"
+            className="text-gray-400 inline-flex items-center align-center whitespace-nowrap"
+          >
             <IoIosArrowBack className="text-base" />
             <span>Back to Home Page</span>
-          </a>
+          </Link>
         </p>
       </div>
     </div>

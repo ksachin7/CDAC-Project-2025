@@ -140,7 +140,12 @@ function RegisterPage() {
         </form>
         <p className="signin-text">
           Already have an account?{' '}
-          <a href="/login" className="signin-link">Login here</a>
+          <span
+            className="signin-link cursor-pointer text-blue-400 hover:underline"
+            onClick={() => navigate('/login')}
+          >
+            Login here
+          </span>
         </p>
       </div>
     </div>

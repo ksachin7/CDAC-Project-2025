@@ -100,6 +100,13 @@
   color: #a0aec0;
 }
 
+.back-text {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #a0aec0;
+}
+
 .signup-link {
   color: #63b3ed;
   text-decoration: none;

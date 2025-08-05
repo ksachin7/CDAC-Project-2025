@@ -22,7 +22,7 @@ function Navbar() {
   return (
     <nav className="w-full bg-black px-12 py-4 sticky top-0 z-10 flex justify-between items-center">
       <div
-        className="text-emerald-400 text-3xl font-bold cursor-pointer transform transition duration-300 hover:scale-105"
+        className="text-green-400 text-3xl font-bold cursor-pointer transform transition duration-300 hover:scale-105"
         onClick={() => navigate('/')}
       >
         eValuation
@@ -54,7 +54,7 @@ function Navbar() {
         {!isJwt ? (
           <button
             className="px-4 py-2 text-sm bg-yellow-100 text-black rounded-full transform transition duration-300 hover:scale-110"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/register')}
           >
             Get Started — It's Free
           </button>

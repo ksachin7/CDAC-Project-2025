@@ -1,25 +1,19 @@
-import { useState } from "react";
-import { Monitor } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+// import { Monitor } from "lucide-react";
+import { IoIosRocket, IoMdPeople } from "react-icons/io";
 import Navbar from "../components/Navbar";
 
-
-
-
 const HomePage = () => {
-  const [meetingId, setMeetingId] = useState("");
-  const navigate = useNavigate();
-  //   function handleJoin() {
-  //     navigate(`/room/${roomId}`);
-  //   }
+  // const [meetingId, setMeetingId] = useState("");
+  // const navigate = useNavigate();
+
   return (
-    <div className="w-screen min-h-screen bg-black   text-white">
+    <div className="w-screen min-h-screen bg-black text-white flex flex-col">
+      {/* Navbar at the top */}
+      <Navbar />
 
-
-
-      <Navbar/>
+      {/* Optional Header Section - Preserved as a comment */}
       {/* <header className="w-screen bg-black px-8 py-4 flex justify-between items-center">
-        <Navbar/>
+        <Navbar />
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-white rounded-full"></div>
           <span className="text-gray-400">/</span>
@@ -32,14 +26,10 @@ const HomePage = () => {
           <span className="text-gray-400">Web App</span>
           <span className="text-gray-400">Companies</span>
         </nav>
-
-        
       </header> */}
 
-      <main className="w-screen px-8 py-20">
-        {/* <div className='w-full bg-white max-w-2xl mx-auto text-center mb-12'>
-                    <img src={myImage} alt="evaluation PNG" />
-                </div> */}
+      <main className="w-screen px-8 py-20 flex flex-col items-center flex-grow">
+        {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold leading-tight">
             <span className="text-[10rem]">👩🏻‍💻</span>
@@ -49,14 +39,40 @@ const HomePage = () => {
               <span className="">e</span>Valuation
             </span>
           </h1>
-          <h2 className="text-xl leading-tight">
-            {/* Connecting Talent with Opportunity */}
+          <h2 className="text-xl leading-tight text-gray-300 mt-4">
             Unlocking Potential, One Interview at a Time
           </h2>
         </div>
 
-        {/* Meeting Join */}
-        <div className="w-full flex justify-center">
+        {/* Feature Grid Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl w-full text-center">
+          <div className="p-6 bg-white/5 backdrop-blur-lg rounded-xl shadow-md hover:shadow-xl transition">
+            <IoIosRocket className="text-green-400 text-4xl mb-4 mx-auto" />
+            <h3 className="text-xl font-semibold mb-2">Fast Onboarding</h3>
+            <p className="text-gray-400">
+              Set up interviews within minutes using our streamlined interface.
+            </p>
+          </div>
+
+          <div className="p-6 bg-white/5 backdrop-blur-lg rounded-xl shadow-md hover:shadow-xl transition">
+            <IoMdPeople className="text-blue-400 text-4xl mb-4 mx-auto" />
+            <h3 className="text-xl font-semibold mb-2">Top Talent Pool</h3>
+            <p className="text-gray-400">
+              Connect with pre-vetted professionals across industries.
+            </p>
+          </div>
+
+          <div className="p-6 bg-white/5 backdrop-blur-lg rounded-xl shadow-md hover:shadow-xl transition">
+            <IoIosRocket className="text-purple-400 text-4xl mb-4 mx-auto" />
+            <h3 className="text-xl font-semibold mb-2">Smart Analytics</h3>
+            <p className="text-gray-400">
+              Make data-driven hiring decisions with powerful interview insights.
+            </p>
+          </div>
+        </div>
+
+        {/* Meeting Join - Preserved as comment for future use */}
+        {/* <div className="w-full flex justify-center mt-16">
           <div className="flex w-full max-w-md gap-3 bg-white/5 backdrop-blur-md p-4 rounded-xl shadow-xl">
             <div className="relative flex-1">
               <Monitor className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
@@ -70,17 +86,20 @@ const HomePage = () => {
             </div>
             <button
               onClick={() => {
-                if (meetingId.trim()) {
-                  navigate(`/room/${meetingId}`);
-                }
+                navigate("/login");
               }}
               className="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium rounded-lg shadow-md transition-all duration-200"
             >
               Join
             </button>
           </div>
-        </div>
+        </div> */}
       </main>
+
+      {/* Footer */}
+      <footer className="w-full text-center py-4 bg-black text-gray-600 text-sm">
+        &copy; {new Date().getFullYear()} eValuation. All rights reserved.
+      </footer>
     </div>
   );
 };
