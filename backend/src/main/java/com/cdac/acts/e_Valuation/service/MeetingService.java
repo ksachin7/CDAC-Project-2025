@@ -107,16 +107,6 @@ public class MeetingService {
 	    	dto.setPurpose(meet.getPurpose());
 	    	dtoList.add(dto);
 	    }
-//	    for(Meeting item :resList) {
-//	    	MeetingCreate dto = new MeetingCreate();
-//	    	dto.setCandidateid(item.getCandidateid());
-//	    	dto.setInterviewerid(item.getInterviewerid());
-//	    	dto.setMeetingid(item.getMeetingid());
-//	    	dto.setPurpose(item.getPurpose());
-//	    	
-//	    	dtoList.add(dto);
-//	    	
-//	    }
 	    return dtoList;
 	}
 	
@@ -160,18 +150,21 @@ public class MeetingService {
 	 
 	public List<HistoryMeetingResponse> getListOfHistoryMeetingByUserId(Long id){
 		List<HistoryMeetingResponse> list = new ArrayList<HistoryMeetingResponse>();
-		List<MeetingCreateResponse> meet = getMeetingListByUserId(id);
-		for(MeetingCreateResponse m : meet) {
-			HistoryMeeting hm = HmService.getByMeetingId(m.getMeetingid());
-			HistoryMeetingResponse hmr = new HistoryMeetingResponse();
-			hmr.setHistorymeetingid(hm.getHistorymeetingid());
-			hmr.setMeetingid(hm.getMeetingid());
-			hmr.setHappen(hm.isHappen());
-			hmr.setPurpose(hm.getPurpose());
-			hmr.setRating(hm.getRating());
-			hmr.setDate(hm.getDate());
-			hmr.setReview(hm.getReview());
-			list.add(hmr);
+		List<HistoryMeeting> hmeet = HmService.getAll();
+		
+		for(HistoryMeeting h : hmeet) {
+			Meeting m = getMeetingById(h.getMeetingid());
+			if(m.getCandidateid()==id || m.getInterviewerid()==id) {
+				HistoryMeetingResponse hmr = new HistoryMeetingResponse();
+				hmr.setHistorymeetingid(h.getHistorymeetingid());
+				hmr.setMeetingid(h.getMeetingid());
+				hmr.setHappen(h.isHappen());
+				hmr.setPurpose(h.getPurpose());
+				hmr.setRating(h.getRating());
+				hmr.setDate(h.getDate());
+				hmr.setReview(h.getReview());
+				list.add(hmr);
+			}
 		}
 		return list;
 	}
