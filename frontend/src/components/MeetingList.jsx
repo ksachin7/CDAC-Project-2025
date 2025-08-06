@@ -63,7 +63,7 @@ const MeetingList = ({ userId }) => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto rounded-xl bg-gray-900 shadow-lg text-white h-full">
-      <h3 className="text-3xl font-bold mb-6 text-blue-400 border-b border-gray-700 pb-2">
+      <h3 className="text-3xl font-bold mb-6 text-green-400 border-b border-gray-700 pb-2">
         Your Meetings
       </h3>
 
@@ -97,7 +97,7 @@ const MeetingList = ({ userId }) => {
 
                 <button
                   onClick={() => navigate(`/room/${meeting.meetingid}`)}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition-colors text-white rounded-lg font-medium w-full md:w-auto"
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 transition-colors text-white rounded-lg font-medium w-full md:w-auto"
                 >
                   Join
                 </button>
