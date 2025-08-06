@@ -54,7 +54,7 @@ const VideoCall = () => {
       showUserList: true,
       onLeaveRoom: () => {
         console.log("🎯 User exited meeting, navigating to dashboard.");console.log();
-        navigate(storedUser?.role?.toUpperCase() === "CANDIDATE"?`/report`:`/meetingfeedback/${roomId}`);
+        navigate(storedUser?.role?.toUpperCase() === "CANDIDATE"?`/`:`/meetingfeedback/${roomId}`);
       },
     });
 
@@ -71,3 +71,4 @@ const VideoCall = () => {
 };
 
 export default VideoCall;
+
