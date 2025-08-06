@@ -60,7 +60,7 @@ public class SecurityConfig {
     config.setAllowedOriginPatterns(List.of(
     		"http://localhost:5173", 
     		"35.154.102.159:5173", 
-    		"https://evaluation.onrender.com"
+    		"https://cdac-project-2025-1.onrender.com"
     		));
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
