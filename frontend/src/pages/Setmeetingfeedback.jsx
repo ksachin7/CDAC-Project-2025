@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-
+import { useNavigate } from "react-router-dom";
+import { submitreview } from '../services/authService';
 
 
 
@@ -9,16 +10,31 @@ function Setmeetingfeedback() {
 
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
-    const [feedback, setFeedback] = useState("");
+    const [review, setreview] = useState("");
+    
 
     const { meetingid } = useParams();
 
+const [meetid,setmeetid]=useState(meetingid);
+
+
+
+
+
+const navigate=useNavigate();
+  
+
+
+
+
+
 useEffect(()=>{
 
+console.log(review);
 console.log(rating);
 
-
-},[rating])
+console.log(meetingid);
+},[rating,review])
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -38,8 +54,8 @@ console.log(rating);
                 <span className="font-semibold text-white">Feedback:</span>
                 <input
     type="text"
-    value={feedback}
-    onChange={(e) => setFeedback(e.target.value)}
+    value={review}
+    onChange={(e) => setreview(e.target.value)}
     placeholder="Enter feedback"
     className="ml-2 px-2 py-1 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
   />
@@ -72,7 +88,14 @@ console.log(rating);
       </ul>
 
       <div className="mt-6 text-right">
-          <button
+          <button  onClick={async () => {
+    try {
+      await submitreview(meetid, rating, review);
+      navigate('/');
+    } catch (error) {
+      alert(error.message); // show error to user
+    }
+  }}
             
             className="px-4 py-2 bg-blue-600 hover:bg-blue-400 text-white rounded-md transition"
           >

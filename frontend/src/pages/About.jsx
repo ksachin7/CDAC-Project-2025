@@ -1,40 +1,61 @@
-import React from 'react'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
-function AboutPage() {
+function About() {
+  const navigate = useNavigate();
+
   return (
-    <main className="min-h-screen bg-gray-900 text-white flex items-center justify-center px-6 py-12">
-      <div className="max-w-3xl bg-gray-800 shadow-lg rounded-xl p-8 border border-gray-700 space-y-5">
-        
-        <h1 className="text-3xl font-bold text-blue-400 text-center border-b border-gray-700 pb-3">
-          About E-Valuation
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center px-6 py-12 relative">
+      
+      {/* Back Arrow Button completely transparent */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-6 left-6 flex items-center gap-2 text-blue-400 hover:text-blue-500 transition 
+                   bg-transparent border-none outline-none focus:outline-none"
+      >
+        <FaArrowLeft className="w-5 h-5" />
+        <span className="text-sm">Move to Home Page</span>
+      </button>
+
+      <div className="max-w-3xl bg-gray-800 shadow-lg rounded-xl p-8 border border-gray-700 mt-8">
+        <h1 className="text-4xl font-bold text-blue-400 mb-6 text-center border-b border-gray-700 pb-3">
+          About E-Valuation Project
         </h1>
-        
-        <p className="text-base text-gray-300 leading-relaxed">
-          <span className="text-blue-400 font-semibold">E-Valuation</span> is an innovative platform crafted to revolutionize the way technical interviews are conducted online. Designed with user experience in mind, it bridges the gap between interviewers and candidates by offering a streamlined, feature-rich environment.
+
+        <p className="text-lg text-gray-300 leading-relaxed mb-6">
+          The <span className="text-blue-400 font-semibold">E-Valuation</span> project is an innovative platform designed for 
+          conducting online technical interviews. It provides a seamless experience 
+          for both interviewers and interviewees with the following features:
         </p>
 
-        <p className="text-base text-gray-300 leading-relaxed">
-          One of its standout features is the <span className="text-blue-400 font-semibold">Live Coding Environment</span>, allowing candidates to tackle coding challenges in real-time while interviewers observe and guide.
-        </p>
+        <ul className="list-disc list-inside text-gray-300 space-y-3 mb-6">
+          <li>
+            <span className="text-blue-400 font-semibold">Live Coding Environment:</span> 
+            &nbsp;Candidates can solve coding problems in real-time with an interactive code editor.
+          </li>
+          <li>
+            <span className="text-blue-400 font-semibold">Video Interview Facility:</span> 
+            &nbsp;Interviewers can interact with candidates face-to-face during the session.
+          </li>
+          <li>
+            <span className="text-blue-400 font-semibold">Meeting Management:</span> 
+            &nbsp;Interviewers can create unique meeting IDs for interview sessions, 
+            and interviewees can easily join using the provided link.
+          </li>
+          <li>
+            <span className="text-blue-400 font-semibold">Real-time Collaboration:</span> 
+            &nbsp;Both participants can view live coding progress and discuss solutions instantly.
+          </li>
+        </ul>
 
-        <p className="text-base text-gray-300 leading-relaxed">
-          With the integrated <span className="text-blue-400 font-semibold">Video Interview Facility</span>, face-to-face interaction is effortless, enabling genuine conversation and immediate feedback.
-        </p>
-
-        <p className="text-base text-gray-300 leading-relaxed">
-          To keep things organized, E-Valuation simplifies scheduling with its <span className="text-blue-400 font-semibold">Meeting Management</span> feature.
-        </p>
-
-        <p className="text-base text-gray-300 leading-relaxed">
-          Collaboration is at the core of E-Valuation. The platform supports <span className="text-blue-400 font-semibold">Real-time Collaboration</span>, so both parties can discuss solutions and view progress simultaneously.
-        </p>
-
-        <p className="text-base text-gray-300 leading-relaxed">
-          Whether you're running remote coding assessments or hiring drives, E-Valuation offers an all-in-one solution for modern recruitment. It’s not just a tool — it’s a better way to connect, evaluate, and build great teams.
+        <p className="text-gray-300 text-lg leading-relaxed">
+          This project is ideal for remote technical interviews, coding assessments, 
+          and evaluation sessions, offering an all-in-one platform for effective recruitment.
         </p>
       </div>
-    </main>
-  )
+    </div>
+  );
 }
 
-export default AboutPage
+export default About;

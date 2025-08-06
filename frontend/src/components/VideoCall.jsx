@@ -13,6 +13,7 @@ const VideoCall = () => {
   
 
 
+
   useEffect(() => {
     if (!roomId || hasJoined || !meetingContainerRef.current) return;
 
@@ -21,9 +22,11 @@ const VideoCall = () => {
     const userId = uuidv4();
 
     let userName = "Guest";
+    let storedUser;
     try {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      console.log(storedUser.role);
+      storedUser = JSON.parse(localStorage.getItem("user"));
+      console.log(storedUser);
+     
       if (storedUser?.name) userName = storedUser.name;
     } catch (err) {
       console.warn("User parse failed");
@@ -50,8 +53,8 @@ const VideoCall = () => {
       showTextChat: true,
       showUserList: true,
       onLeaveRoom: () => {
-        console.log("🎯 User exited meeting, navigating to dashboard.");
-        navigate(`/meetingfeedback/${roomId}`);
+        console.log("🎯 User exited meeting, navigating to dashboard.");console.log();
+        navigate(storedUser?.role?.toUpperCase() === "CANDIDATE"?`/report`:`/meetingfeedback/${roomId}`);
       },
     });
 

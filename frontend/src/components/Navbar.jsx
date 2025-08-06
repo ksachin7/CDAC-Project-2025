@@ -30,6 +30,14 @@ function Navbar() {
 
       {/* Navigation Links */}
       <div className="flex items-center gap-6 text-white text-lg">
+
+      <div
+          className="cursor-pointer transform transition duration-300 hover:scale-110"
+          onClick={() => navigate('/dashboard')}
+        >
+          Dashboard
+        </div>
+
         <div
           className="cursor-pointer transform transition duration-300 hover:scale-110"
           onClick={() => navigate('/about')}

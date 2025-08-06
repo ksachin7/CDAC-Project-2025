@@ -163,6 +163,10 @@ public class MeetingService {
 				hmr.setRating(h.getRating());
 				hmr.setDate(h.getDate());
 				hmr.setReview(h.getReview());
+				hmr.setCandidatname(userService.getUserById(m.getCandidateid()).get().getName());
+				hmr.setCandidatemail(userService.getUserById(m.getCandidateid()).get().getEmail());
+				hmr.setInterviewername(userService.getUserById(m.getInterviewerid()).get().getName());
+				hmr.setIntervieweremail(userService.getUserById(m.getInterviewerid()).get().getEmail());
 				list.add(hmr);
 			}
 		}
