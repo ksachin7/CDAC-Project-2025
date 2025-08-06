@@ -68,7 +68,7 @@ const CodeEditorWithOutput = () => {
     const languageId = languageMap[language];
     setOutput("Running...");
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/code/run`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/code/run`, {
         languageId,
         sourceCode: code,
       });
@@ -112,3 +112,4 @@ const CodeEditorWithOutput = () => {
 };
 
 export default CodeEditorWithOutput;
+
