@@ -5,6 +5,7 @@ import api from "../api";
 function ReportPage() {
   const [meetings, setMeetings] = useState([]);
   const [userinfo, setUserinfo] = useState({});
+  const [loading, setLoading] = useState(true); // Loader state
   const navigate = useNavigate(); 
 
   useEffect(() => {
@@ -12,19 +13,18 @@ function ReportPage() {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         
-       
         if (!user || !user.id) {
           navigate("/login");
           return;
         }
 
         setUserinfo(user);
-       
         const res = await api.get(`/meeting/history/${user.id}`);
         setMeetings(res.data || []);
-        
       } catch (error) {
         console.error("Error fetching meeting history:", error);
+      } finally {
+        setLoading(false); // Stop loader
       }
     };
 
@@ -52,7 +52,9 @@ function ReportPage() {
     <div className="min-h-screen bg-gray-900 text-white py-10 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex justify-between items-center mb-6 border-b border-gray-700 pb-3">
-          <h1 className="text-3xl font-bold text-blue-400">Meeting Report History :{userinfo.role?.toUpperCase()==="CANDIDATE" ? "Candidate":"Interviewer"}</h1>
+          <h1 className="text-3xl font-bold text-blue-400">
+            Meeting Report History :{userinfo.role?.toUpperCase() === "CANDIDATE" ? "Candidate" : "Interviewer"}
+          </h1>
           <button
             onClick={() => navigate("/")}
             className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition"
@@ -61,7 +63,9 @@ function ReportPage() {
           </button>
         </div>
 
-        {meetings.length === 0 ? (
+        {loading ? (
+          <p className="text-gray-400 text-lg text-center mt-20">Loading...</p>
+        ) : meetings.length === 0 ? (
           <p className="text-gray-400">No meeting history available.</p>
         ) : (
           <ul className="space-y-6">
