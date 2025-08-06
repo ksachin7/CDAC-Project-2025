@@ -24,7 +24,7 @@ const CodeEditorWithOutput = () => {
   const { roomId } = useParams(); // room ID from URL
 
   useEffect(() => {
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS(`${import.meta.env.VITE_API_URL}/ws`);
     stompClient.current = new Client({
       webSocketFactory: () => socket,
       debug: (str) => console.log(str),
@@ -68,7 +68,7 @@ const CodeEditorWithOutput = () => {
     const languageId = languageMap[language];
     setOutput("Running...");
     try {
-      const response = await axios.post("http://localhost:8080/api/code/run", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/code/run`, {
         languageId,
         sourceCode: code,
       });

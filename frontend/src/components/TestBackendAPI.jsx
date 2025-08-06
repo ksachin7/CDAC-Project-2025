@@ -5,7 +5,7 @@ function TestBackendAPI() {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/message')
+        axios.get('https://cdac-project-2025.onrender.com/api/message')
             .then(response => setMessage(response.data.message))
             .catch(error => console.error(error));
     }, []);
