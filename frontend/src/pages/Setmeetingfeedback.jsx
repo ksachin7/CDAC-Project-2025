@@ -41,7 +41,7 @@ console.log(meetingid);
     <div className="p-6 max-w-3xl mx-auto rounded-xl bg-gray-900 shadow-lg text-white relative">
  
 
-      <h3 className="text-3xl font-bold mb-6 text-blue-400 border-b border-gray-700 pb-2">
+      <h3 className="text-3xl font-bold mb-6 text-green-400 border-b border-gray-700 pb-2">
         Rate Inteviewee
       </h3>
 
@@ -57,7 +57,7 @@ console.log(meetingid);
     value={review}
     onChange={(e) => setreview(e.target.value)}
     placeholder="Enter feedback"
-    className="ml-2 px-2 py-1 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    className="ml-2 px-2 py-1 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400"
   />
 
               </p>
@@ -97,7 +97,7 @@ console.log(meetingid);
     }
   }}
             
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-400 text-white rounded-md transition"
+            className="px-4 py-2 bg-green-600 hover:bg-green-400 text-white rounded-md transition"
           >
             Submit Feedback
           </button>
