@@ -5,9 +5,13 @@ import LogoutButton from '../components/LogoutButton.jsx';
 import MeetingForm from "../components/MeetingForm.jsx";
 import MeetingList from '../components/MeetingList.jsx';
 import ProfileIcon from '../components/ProfileIcon.jsx';
+import { useNavigate } from "react-router-dom"; 
+
 
 function Dashboard() {
     const [user, setUser] = useState(null);
+      const navigate = useNavigate(); 
+
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
