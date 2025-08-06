@@ -28,6 +28,12 @@ function Dashboard() {
             <nav className="flex justify-between items-center px-8 py-4 bg-gray-900 shadow w-full">
                 <h2 className="text-4xl font-bold text-blue-400">Dashboard</h2>
                 <div className="flex items-center space-x-4">
+                <button
+                        onClick={() => navigate("/")}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition"
+                      >
+                    Go to Home
+                    </button>
                     <ProfileIcon user={user} />
                     <LogoutButton />
                 </div>
