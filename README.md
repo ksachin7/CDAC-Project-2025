@@ -42,15 +42,14 @@ This project is a full-stack interview platform designed to facilitate online te
 | Module                | Tech Stack                        |
 | --------------------- | --------------------------------- |
 | Frontend UI           | React.js, TailwindCSS             |
-| Video Call            | WebRTC                            |
-| Real-Time (Chat etc.) | Socket.IO / WebSocket             |
+| Video Call            | ZEGOCLOUD                         |
+| Real-Time (Chat etc.) | ZEGOCLOUD                         |
 | Backend API           | Spring Boot, REST, Spring data    |
-| DB                    | PostgreSQL/MySQL                  |
+| DB                    | PostgreSQL/H2                     |
 | Auth                  | Spring Security + JWT             |
 | Email                 | JavaMailSender                    |
-| Code Editor           | Monaco Editor                     |
-| Scheduler             | Spring Tasks                      |
-| Deployment            | AWS                               |
+| Code Editor           | Monaco Editor, Judge0, WebSocket  |
+| Deployment            | Docker, Render                    |
 
 ---
 
