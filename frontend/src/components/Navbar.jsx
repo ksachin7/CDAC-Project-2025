@@ -22,6 +22,7 @@ function Navbar() {
   return (
     <nav className="w-full bg-black px-12 py-4 sticky top-0 z-10 flex justify-between items-center">
       <div
+        // style={{ fontFamily: "tahoma" }}
         className="text-green-400 text-3xl font-bold cursor-pointer transform transition duration-300 hover:scale-105"
         onClick={() => navigate('/')}
       >
@@ -31,7 +32,7 @@ function Navbar() {
       {/* Navigation Links */}
       <div className="flex items-center gap-6 text-white text-lg">
 
-      <div
+        <div
           className="cursor-pointer transform transition duration-300 hover:scale-110"
           onClick={() => navigate('/dashboard')}
         >

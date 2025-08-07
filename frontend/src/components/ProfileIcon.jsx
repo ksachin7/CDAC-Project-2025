@@ -42,7 +42,7 @@ export default function ProfileIcon({ user, size = 40 }) {
       <div
         ref={avatarRef}
         onClick={togglePopup}
-        className="rounded-full bg-gray-800 text-blue-400 font-bold flex items-center justify-center cursor-pointer overflow-hidden border border-blue-500 shadow-md hover:scale-105 transition duration-200"
+        className="rounded-full bg-gray-800 text-green-400 font-bold flex items-center justify-center cursor-pointer overflow-hidden border border-green-500 shadow-md hover:scale-105 transition duration-200"
         style={{ ...avatarSize }}
       >
         {user?.avatarUrl ? (
@@ -59,15 +59,15 @@ export default function ProfileIcon({ user, size = 40 }) {
       {showPopup && (
         <div
           ref={popupRef}
-          className="absolute mt-2 right-0  bg-gray-900 border border-blue-700 text-white rounded-xl shadow-xl p-4 z-50 w-48"
+          className="absolute mt-2 right-0  bg-gray-900 border border-green-700 text-white rounded-xl shadow-xl p-4 z-50 w-48"
         >
-          <p className="font-bold text-blue-400 text-lg capitalize">
+          <p className="font-bold text-green-400 text-lg capitalize">
             {user?.name || "Unknown"}
           </p>
           <p className="text-gray-300 text-base">{user?.email}</p>
           <p className="mt-1 text-base">
             <span className="font-semibold text-gray-400">Role:</span>{" "}
-            <span className="italic text-blue-300">{user?.role}</span>
+            <span className="italic text-green-300">{user?.role}</span>
           </p>
         </div>
       )}

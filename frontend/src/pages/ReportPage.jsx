@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
-import api from "../api"; 
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+import api from "../api";
 
 function ReportPage() {
   const [meetings, setMeetings] = useState([]);
   const [userinfo, setUserinfo] = useState({});
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        
-       
+
+
         if (!user || !user.id) {
           navigate("/login");
           return;
         }
 
         setUserinfo(user);
-       
+
         const res = await api.get(`/meeting/history/${user.id}`);
         setMeetings(res.data || []);
-        
+
       } catch (error) {
         console.error("Error fetching meeting history:", error);
       }
@@ -52,12 +53,14 @@ function ReportPage() {
     <div className="min-h-screen bg-gray-900 text-white py-10 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="flex justify-between items-center mb-6 border-b border-gray-700 pb-3">
-          <h1 className="text-3xl font-bold text-blue-400">Meeting Report History :{userinfo.role?.toUpperCase()==="CANDIDATE" ? "Candidate":"Interviewer"}</h1>
+          <h1 className="text-3xl font-bold text-green-400">Meeting Report History :{userinfo.role?.toUpperCase() === "CANDIDATE" ? "Candidate" : "Interviewer"}</h1>
           <button
             onClick={() => navigate("/")}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition"
+            className="border border-green-400 text-green-400 hover:text-green-500 hover:border-green-500 bg-transparent px-0 py-2 rounded-md transition flex items-center gap-2 ml-auto"
+            aria-label="Go back to Home"
           >
-            Go to Home
+            <FaArrowLeft className="w-5 h-5" />
+            <span className="text-sm font-medium">Back to Homepage</span>
           </button>
         </div>
 
@@ -71,7 +74,7 @@ function ReportPage() {
                 className="bg-gray-800 p-5 rounded-xl border border-gray-700 hover:shadow-xl transition-shadow"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  
+
                   {/* Left Section */}
                   <div>
                     <p className="text-gray-400">
