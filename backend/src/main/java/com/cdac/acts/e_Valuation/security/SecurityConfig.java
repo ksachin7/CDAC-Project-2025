@@ -1,7 +1,6 @@
 package com.cdac.acts.e_Valuation.security;
 
 import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,15 +29,28 @@ public class SecurityConfig {
       .headers(headers ->
         headers.frameOptions(frameOptions -> frameOptions.disable())
       ) // required for /h2-console to load
+      // .authorizeHttpRequests(auth ->
+      //   auth
+      //     .requestMatchers(
+      //       "/auth/**",
+      //       "/h2-console/**",
+      //       "/api/code/**",
+      //       "/ws/**"
+      //     )
+      //     .permitAll()
+      //     .anyRequest()
+      //     .authenticated()
+      // )
       .authorizeHttpRequests(auth ->
         auth
-          .requestMatchers(
-            "/auth/**",
-            "/h2-console/**",
-            "/api/code/**",
-            "/ws/**"
-          )
+          .requestMatchers("/auth/**", "/h2-console/**")
           .permitAll()
+          .requestMatchers("/ws/**")
+          .authenticated() // JWT validated in WS handshake
+          .requestMatchers("/api/code/**")
+          .authenticated() // secure collab
+          .requestMatchers("/api/meeting/create")
+          .hasRole("INTERVIEWER")
           .anyRequest()
           .authenticated()
       )
@@ -57,11 +69,13 @@ public class SecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
-    config.setAllowedOriginPatterns(List.of(
-    		"http://localhost:5173", 
-    		"35.154.102.159:5173", 
-    		"https://evaluation.onrender.com"
-    		));
+    config.setAllowedOriginPatterns(
+      List.of(
+        "http://localhost:5173",
+        "35.154.102.159:5173",
+        "https://evaluation.onrender.com"
+      )
+    );
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
     config.setAllowCredentials(true);
